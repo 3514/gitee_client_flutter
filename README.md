@@ -17,3 +17,36 @@ widgets	APP内封装的一些Widget组件都在该目录下
 
 🍎网页版 👉 <https://caijinglong.github.io/json2dart/index_ch.html>
 
+## flukit
+<https://github.com/flutterchina/flukit>
+
+## enum 
+<https://medium.com/flutter/enums-with-extensions-dart-460c42ea51f7>
+
+```dart
+///方式一
+const tab_title_home = <String>["推荐项目", "热门项目", "最近更新"];
+
+///方式二(推荐)
+enum TabTitleHome {
+  Recommend,
+  Popular,
+  Recent,
+}
+
+extension TabTitleHomeExtension on TabTitleHome {
+  //eg: Recommend
+  String get name => describeEnum(this);
+
+  List<String> get  _titles => <String>["推荐项目", "热门项目", "最近更新"];
+
+  String get _titles => titles.elementAt(this.index);
+}
+```
+
+应用:
+```dart
+List<String> _tabs = tab_title_home.toList();
+List<String> _tabs = TabTitleHome.Recommend.titles;//_titles -> titles
+List<String> _tabs = TabTitleHome.values.map((e) => e.title).toList();//推荐
+```

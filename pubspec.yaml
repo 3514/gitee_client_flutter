@@ -90,9 +90,9 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-#  assets:
-#    - imgs/avatar-default.png
-#
+  assets:
+    - static/image/avatar-default.png
+
 #  fonts:
 #    - family: myIcon
 #      fonts:

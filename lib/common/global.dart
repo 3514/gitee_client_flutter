@@ -43,4 +43,7 @@ class Global {
 
   ///持久化Profile
   static saveProfile() => _sp.setString('profile', jsonEncode(profile.toJson()));
+
+  static navToPage(BuildContext context, String routeName, Object arguments) =>
+      Navigator.of(context).pushNamed(routeName, arguments: arguments);
 }

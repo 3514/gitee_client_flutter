@@ -11,21 +11,32 @@ class _HomeRouteState extends State<HomeRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Gitee'),
+        title: Text(GmLocalizations.of(context).home),
       ),
-      body: _buildBody(),
-      drawer: _HomeDrawer(),
+      body: _buildBody(), //主页面
+      drawer: _HomeDrawer(), //抽屉菜单
     );
   }
 
   ///body
   Widget _buildBody() {
-    return Center(
-      child: RaisedButton(
-        child: Text('登录'),
-        onPressed: () => Navigator.of(context).pushNamed("login"),
-      ),
-    );
+    UserModel userModel = Provider.of<UserModel>(context);
+    return HomeTabViewPagerWidget();
+
+    //用户未登录, 显示登录按钮
+    // if (!userModel.isLogin) {
+    //   return Center(
+    //     child: RaisedButton(
+    //       child: Text(GmLocalizations.of(context).login),
+    //       onPressed: () => Global.navToPage(context, page_login),
+    //     ),
+    //   );
+    // } else {
+    //   //已登录，构建首页, 推荐项目,热门项目,最近更新
+    //   return HomeTabViewPagerWidget();
+    // }
+
+
   }
 }
 
@@ -34,6 +45,7 @@ class _HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      //移除顶部padding
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,

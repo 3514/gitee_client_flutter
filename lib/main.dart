@@ -10,29 +10,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(
-    //   title: 'Flutter Demo',
-    //   theme: ThemeData(
-    //     primarySwatch: Colors.blue,
-    //     visualDensity: VisualDensity.adaptivePlatformDensity,
-    //   ),
-    //   home: MyHomePage(title: 'Flutter Demo Home Page'),
-    // );
-
     return MultiProvider(
       providers: <SingleChildWidget>[
         ChangeNotifierProvider.value(value: ThemeModel()),
         ChangeNotifierProvider.value(value: LocaleModel()),
+        ChangeNotifierProvider.value(value: UserModel()),
       ],
-      child: Consumer2<ThemeModel, LocaleModel>(builder: (BuildContext context, themeModel, localeModel, Widget child) {
+      child: Consumer2<ThemeModel, LocaleModel>(
+          builder: (BuildContext context, themeModel, localeModel, Widget child) {
         return MaterialApp(
           theme: ThemeData(
             primarySwatch: themeModel.theme,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           onGenerateTitle: (context) {
-            // return GmLocalizations.of(context).title;
-            return "Gitee";
+            return GmLocalizations.of(context).title;
           },
           home: HomeRoute(),
 
@@ -47,7 +39,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
-            //GmLocalizationsDelegate()
+            GmLocalizationsDelegate()
             //...
           ],
           localeResolutionCallback: (Locale _locale, Iterable<Locale> supportedLocales) {
@@ -73,4 +65,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

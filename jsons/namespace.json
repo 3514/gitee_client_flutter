@@ -1,0 +1,19 @@
+{
+  "id": 6610570,
+  "name": "JJZHK-AI",
+  "path": "jjzhk-ai",
+  "owner_id": 956405,
+  "created_at": "2020-09-09T14:22:57+08:00",
+  "updated_at": "2020-09-09T14:37:22+08:00",
+  "description": "JJZHK的AI项目",
+  "address": "192.168.2.132",
+  "email": "myjjzhk@126.com",
+  "url": "",
+  "location": "",
+  "public": true,
+  "enterprise_id": 0,
+  "level": 0,
+  "from": null,
+  "outsourced": false,
+  "avatar": "https://portrait.gitee.com/uploads/avatars/namespace/2203/6610570_jjzhk-ai_1599633417.png?allow_nil=true"
+}

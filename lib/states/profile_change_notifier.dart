@@ -10,6 +10,23 @@ class ProfileChangeNotifier extends ChangeNotifier {
   }
 }
 
+///用户
+class UserModel extends ProfileChangeNotifier {
+  User get user => _profile.user;
+
+  //App是否登录(如果有用户信息,则已登录)
+  bool get isLogin => user != null;
+
+  //用户信息发生变化，更新用户信息并通知依赖它的子孙Widgets更新
+  set user(User user) {
+    if (user?.id != _profile.user?.id) {
+      _profile.lastLogin = _profile.user?.id?.toString();
+      _profile.user = user;
+      notifyListeners();
+    }
+  }
+}
+
 ///主题
 class ThemeModel extends ProfileChangeNotifier {
   // 获取当前主题, 如果为设置主题, 则默认使用第一个主题
