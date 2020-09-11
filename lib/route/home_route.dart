@@ -54,10 +54,8 @@ class _HomeRouteState extends State<HomeRoute> with SingleTickerProviderStateMix
           IconButton(icon: const Icon(Icons.search), onPressed: () {}),
         ],
       ),
-      body: _buildBody(),
-      //主页面
-      drawer: _HomeDrawer(),
-      //抽屉菜单
+      body: _buildBody(), //主页面
+      drawer: _HomeDrawer(), //抽屉菜单
 
       ///底部导航 BottomNavigationBar
       bottomNavigationBar: BottomNavigationBar(
