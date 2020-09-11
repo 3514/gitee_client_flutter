@@ -3,65 +3,9 @@ import 'package:gitee_client_flutter/common/gitee_api.dart';
 
 import '../index.dart';
 
-///类似Android中 TabLayout+ViewPager 效果
-class HomeTabViewPagerWidget extends StatefulWidget {
-  @override
-  _HomeTabViewPagerWidgetState createState() => _HomeTabViewPagerWidgetState();
-}
-
-class _HomeTabViewPagerWidgetState extends State<HomeTabViewPagerWidget>
-    with SingleTickerProviderStateMixin {
-  ///TabBar和TabBarView正是通过同一个controller来实现菜单切换和滑动状态同步的
-  TabController _tabController;
-  List<TabTitleHome> _tabs = TabTitleHome.values;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        ///TabBar
-        TabBar(
-          controller: _tabController,
-          tabs: _tabs
-              .map((e) => Tab(
-                    text: e.title,
-                  ))
-              .toList(),
-        ),
-
-        ///TabBarView
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            //创建n个Tab页
-            // children: _tabs.map((e) {
-            // return   _HomeListWidget(e);
-            // }).toList(),
-            children: [
-              Container(
-                color: Theme.of(context).primaryColorLight.withOpacity(0.5),
-                width: double.infinity,
-              ),
-              _HomeListWidget(TabTitleHome.Popular),
-              _HomeListWidget(TabTitleHome.Recent),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-///项目
-class _HomeListWidget extends StatefulWidget {
-  _HomeListWidget(this.tab, {Key key}) : super(key: ValueKey(tab.name));
+///项目列表
+class HomeListWidget extends StatefulWidget {
+  HomeListWidget(this.tab, {Key key}) : super(key: ValueKey(tab.name));
 
   final TabTitleHome tab;
 
@@ -71,22 +15,10 @@ class _HomeListWidget extends StatefulWidget {
   }
 }
 
-class _HomeListWidgetState extends State<_HomeListWidget> with AutomaticKeepAliveClientMixin {
-
+class _HomeListWidgetState extends State<HomeListWidget> with AutomaticKeepAliveClientMixin {
   //导航栏切换时保持原有状态
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    super.initState();
-    print("_HomeListWidgetState initState ${widget.tab}");
-  }
-
-  @override
-  void dispose() {
-    super.dispose();print("_HomeListWidgetState dispose");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +35,9 @@ class _HomeListWidgetState extends State<_HomeListWidget> with AutomaticKeepAliv
         items.addAll(data);
         return data.length > 0 && data.length % 20 == 0;
       },
+      emptyBuilder: (VoidCallback refresh, BuildContext context) {
+        return _listNoDataView(refresh, context);
+      },
       itemBuilder: (List list, int index, BuildContext ctx) {
         // 项目信息列表项
         return _RepoItemWidget(list[index]);
@@ -111,28 +46,49 @@ class _HomeListWidgetState extends State<_HomeListWidget> with AutomaticKeepAliv
   }
 }
 
+Widget _listNoDataView(refresh, context) {
+  return Material(
+    child: InkWell(
+      splashColor: Theme.of(context).secondaryHeaderColor,
+      onTap: refresh,
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.only(top: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.event_busy,
+                color: Theme.of(context).primaryColor,
+                size: 150,
+              ),
+              Padding(
+                  padding: EdgeInsets.only(top: 0),
+                  child: Text(
+                    "没有数据",
+                    style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 18),
+                  ))
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 ///项目列表 ItemView
 class _RepoItemWidget extends StatefulWidget {
   _RepoItemWidget(this.repo) : super(key: ValueKey(repo.id));
   final RepoFeature repo;
 
   @override
-  __RepoItemWidgetState createState() {
-    return __RepoItemWidgetState();
+  _RepoItemWidgetState createState() {
+    return _RepoItemWidgetState();
   }
 }
 
-class __RepoItemWidgetState extends State<_RepoItemWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
+class _RepoItemWidgetState extends State<_RepoItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -152,7 +108,7 @@ class __RepoItemWidgetState extends State<_RepoItemWidget> {
             children: <Widget>[
               ListTile(
                 dense: true,
-                leading: gmAvatar(
+                leading: getAvatarRect(
                   //项目owner头像
                   widget.repo.owner.portrait_url,
                   width: 35.0,
@@ -176,7 +132,7 @@ class __RepoItemWidgetState extends State<_RepoItemWidget> {
                 trailing: Text(
                   widget.repo.language ?? "",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.deepOrange[700],
                     fontSize: 12,
                   ),
                 ),

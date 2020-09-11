@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:gitee_client_flutter/common/gitee_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../index.dart';
 
@@ -38,12 +39,12 @@ class Global {
       ..maxCount = 100;
 
     ///初始化网络请求
-    // Git.init();
+    GiteeApi.init();
   }
 
   ///持久化Profile
   static saveProfile() => _sp.setString('profile', jsonEncode(profile.toJson()));
 
-  static navToPage(BuildContext context, String routeName, Object arguments) =>
+  static navToPage(BuildContext context, String routeName, {Object arguments}) =>
       Navigator.of(context).pushNamed(routeName, arguments: arguments);
 }

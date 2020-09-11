@@ -4,11 +4,31 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gitee_client_flutter/common/const.dart';
 
-Widget gmAvatar(
+Widget getAvatarCircle(
   String url, {
-  double width = 30,
+  double radius = 30.0,
+  BoxFit fit = BoxFit.cover,
+}) {
+  var placeholder = Image.asset(image_avatar_default, //默认头像
+      width: radius,
+      height: radius);
+  return ClipOval(
+    child: CachedNetworkImage(
+      imageUrl: url,
+      width: radius,
+      height: radius,
+      fit: fit,
+      placeholder: (context, url) => placeholder,
+      errorWidget: (context, url, error) => placeholder,
+    ),
+  );
+}
+
+Widget getAvatarRect(
+  String url, {
+  double width = 30.0,
   double height,
-  BoxFit fit,
+  BoxFit fit = BoxFit.cover,
   BorderRadius borderRadius,
 }) {
   var placeholder = Image.asset(image_avatar_default, //默认头像

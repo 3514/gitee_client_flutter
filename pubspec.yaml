@@ -91,7 +91,8 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   assets:
-    - static/image/avatar-default.png
+    - static/font/
+    - static/image/
 
 #  fonts:
 #    - family: myIcon

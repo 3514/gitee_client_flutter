@@ -45,26 +45,32 @@ class GiteeApi {
   }
 
   // 登录接口，登录成功后返回用户信息
-  Future<User> login(String login, String pwd) async {
-    String basic = 'Basic ' + base64.encode(utf8.encode('$login:$pwd'));
-    var r = await dio.get(
-      "/users/$login",
+  // email 既可以是邮箱,也可以是账号名
+  Future<User> login(String email, String password) async {
+    //String basic = 'Basic ' + base64.encode(utf8.encode('$login:$pwd'));
+    final FormData formData = new FormData.fromMap({
+      "email": email,
+      "password": password,
+    });
+    var r = await dio.post(
+      "/session",
+      data: formData,
       options: _options.merge(headers: {
-        HttpHeaders.authorizationHeader: basic
+        //HttpHeaders.authorizationHeader: basic
       }, extra: {
         "noCache": true, //本接口禁用缓存
       }),
     );
     //登录成功后更新公共头（authorization），此后的所有请求都会带上用户身份信息
-    dio.options.headers[HttpHeaders.authorizationHeader] = basic;
+    //dio.options.headers[HttpHeaders.authorizationHeader] = basic;
     //清空所有缓存
     Global.netCache.cache.clear();
     //更新profile中的token信息
-    Global.profile.token = basic;
+    //Global.profile.token = basic;
     return User.fromJson(r.data);
   }
 
-  //获取项目列表
+  // 获取项目列表
   Future<List<RepoFeature>> getRepoList(
       {TabTitleHome tab,
       Map<String, dynamic> queryParameters, //query参数，用于接收分页信息
@@ -78,10 +84,10 @@ class GiteeApi {
       case TabTitleHome.Recommend:
         _option = "featured";
         break;
-      case TabTitleHome.Recommend:
+      case TabTitleHome.Popular:
         _option = "popular";
         break;
-      case TabTitleHome.Recommend:
+      case TabTitleHome.Recent:
         _option = "latest";
         break;
       default:
