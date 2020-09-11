@@ -60,24 +60,24 @@ class _HomeRouteState extends State<HomeRoute> with SingleTickerProviderStateMix
       //抽屉菜单
 
       ///底部导航 BottomNavigationBar
-      // bottomNavigationBar: BottomNavigationBar(
-      //   elevation: 0.0,
-      //   type: BottomNavigationBarType.fixed,
-      //   items: NavTitleHome.values
-      //       .map((e) => BottomNavigationBarItem(
-      //             icon: Icon(e.getIconData()),
-      //             title: Text(
-      //               e.title,
-      //               style: TextStyle(
-      //                 fontSize: 12,
-      //               ),
-      //             ),
-      //           ))
-      //       .toList(),
-      //   currentIndex: _selectedIndex,
-      //   //fixedColor: Colors.blue,
-      //   onTap: _onItemTapped,
-      // ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 0.0,
+        type: BottomNavigationBarType.fixed,
+        items: NavTitleHome.values
+            .map((e) => BottomNavigationBarItem(
+                  icon: Icon(e.getIconData()),
+                  title: Text(
+                    e.title,
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                ))
+            .toList(),
+        currentIndex: _selectedIndex,
+        //fixedColor: Colors.blue,
+        onTap: _onItemTapped,
+      ),
 
       ///Material组件库中提供了一个BottomAppBar 组件，它可以和FloatingActionButton配合实现这种“打洞”效果
       // bottomNavigationBar: BottomAppBar(
