@@ -68,6 +68,12 @@ class GmLocalizations {
   String get yes => Intl.message('yes', name: 'yes');
 
   String get cancel => Intl.message('cancel', name: 'cancel');
+
+  String get navGitee => Intl.message('navGitee', name: 'navGitee');
+
+  String get navGitHub => Intl.message('navGitHub', name: 'navGitHub');
+
+  String get navMe => Intl.message('navMe', name: 'navMe');
 }
 
 //Locale代理类
@@ -76,7 +82,7 @@ class GmLocalizationsDelegate extends LocalizationsDelegate<GmLocalizations> {
 
   //是否支持某个Local
   @override
-  bool isSupported(Locale locale) => ['en', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => ['zh', 'en'].contains(locale.languageCode);
 
   // Flutter会调用此类加载相应的Locale资源类
   @override

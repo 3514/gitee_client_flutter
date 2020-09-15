@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-04-30T15:02:44.753296",
+  "@@last_modified": "2020-09-15T11:00:00.753296",
   "title": "码云",
   "@title": {
     "description": "Title for the Demo application",
@@ -83,6 +83,21 @@
   },
   "cancel": "取消",
   "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "navGitee": "码云",
+  "@navGitee": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "navGitHub": "集线器",
+  "@navGitHub": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "navMe": "我的",
+  "@navMe": {
     "type": "text",
     "placeholders": {}
   }

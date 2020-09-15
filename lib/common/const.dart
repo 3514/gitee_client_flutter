@@ -36,31 +36,3 @@ extension TabTitleHomeExtension on TabTitleHome {
 
   String get title => _titles.elementAt(this.index);
 }
-
-///底部导航 Title
-enum NavTitleHome {
-  Gitee,
-  GitHub,
-  Me,
-}
-
-extension NavTitleHomeExtension on NavTitleHome {
-  String get name => describeEnum(this);
-
-  List<String> get _titles => <String>["码云", "集线器", "我的"];
-
-  String get title => _titles.elementAt(this.index);
-
-  IconData getIconData()  {
-    switch (this) {
-      case NavTitleHome.Gitee:
-        return Icons.folder_special;
-      case NavTitleHome.GitHub:
-        return Icons.folder;
-      case NavTitleHome.Me:
-        return Icons.account_circle;
-      default:
-        return Icons.folder_special;
-    }
-  }
-}
