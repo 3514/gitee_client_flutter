@@ -5,7 +5,6 @@ class LanguageRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     var color = Theme.of(context).primaryColor;
     var localeModel = Provider.of<LocaleModel>(context, listen: false);
-    //var gm = GmLocalizations.of(context);
     Widget _buildLanguageItem(String lan, value) {
       return ListTile(
         title: Text(
@@ -21,17 +20,16 @@ class LanguageRoute extends StatelessWidget {
       );
     }
 
+    var gm = GmLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        // title: Text(gm.language),
-        title: Text('语言'),
+        title: Text(gm.language),
       ),
       body: ListView(
         children: <Widget>[
           _buildLanguageItem("中文简体", "zh_CN"),
           _buildLanguageItem("English", "en_US"),
-          // _buildLanguageItem(gm.auto, null),
-          _buildLanguageItem('跟随系统', null),
+          _buildLanguageItem(gm.auto, null),
         ],
       ),
     );

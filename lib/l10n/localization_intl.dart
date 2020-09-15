@@ -25,6 +25,16 @@ class GmLocalizations {
     );
   }
 
+  //https://book.flutterchina.club/chapter13/intl.html
+  // remainingEmailsMessage(int howMany) => Intl.plural(howMany,
+  //     zero: 'There are no emails left',
+  //     one: 'There is $howMany email left',
+  //     other: 'There are $howMany emails left',
+  //     name: "remainingEmailsMessage",
+  //     args: [howMany],
+  //     desc: "How many emails remain after archiving.",
+  //     examples: const {'howMany': 42});
+
   String get home => Intl.message('Gitee', name: 'home');
 
   String get language => Intl.message('Language', name: 'language');

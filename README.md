@@ -11,6 +11,30 @@ routes	存放所有路由页面类
 widgets	APP内封装的一些Widget组件都在该目录下
 ```
 
+## 国际化
+
+
+dart -> arb
+```
+flutter pub pub run intl_translation:extract_to_arb --output-dir=target/directory
+      my_program.dart more_of_my_program.dart
+my: 
+flutter pub pub run intl_translation:extract_to_arb --output-dir=l10n-arb \ lib/l10n/localization_intl.dart
+```
+arb -> dart
+```
+flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/localization_intl.dart l10n-arb/intl_*.arb
+```
+
+根目录下创建一个intl.sh的脚本，内容为：
+```
+flutter pub pub run intl_translation:extract_to_arb --output-dir=l10n-arb lib/l10n/localization_intl.dart
+flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/localization_intl.dart l10n-arb/intl_*.arb
+```
+Linux: 然后授予执行权限： `chmod +x intl.sh` , 执行intl.sh： `./intl.sh` <br>
+
+Windows: `intl.sh`
+
 ## 使用`json_model`构建`json_serializable`实体类
 
 🍎仅需一条指令 👉 `flutter packages pub run json_model`
