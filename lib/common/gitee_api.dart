@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../index.dart';
 
-///
+///码云Api
 class GiteeApi {
   // 在网络请求过程中可能会需要使用当前的context信息，比如在请求失败时
   // 打开一个新路由，而打开新路由需要context信息。
@@ -70,7 +70,7 @@ class GiteeApi {
     return User.fromJson(r.data);
   }
 
-  // 获取项目列表
+  // 获取项目列表 https://gitee.com/api/v3/projects/featured/?page=1
   Future<List<RepoFeature>> getRepoList(
       {TabTitleHome tab,
       Map<String, dynamic> queryParameters, //query参数，用于接收分页信息
@@ -93,11 +93,31 @@ class GiteeApi {
       default:
         break;
     }
-    var r = await dio.get<List>(
+    var response = await dio.get<List>(
       "projects/$_option/",
       queryParameters: queryParameters,
       options: _options,
     );
-    return r.data.map((e) => RepoFeature.fromJson(e)).toList();
+    return response.data.map((e) => RepoFeature.fromJson(e)).toList();
+  }
+
+  //搜索仓库 https://gitee.com/api/v3/projects/search/jfinal?page=3
+  Future<List<RepoFeature>> searchRepos(
+      {@required String keyWords, Map<String, dynamic> queryParameters}) async {
+    ///dio.request
+    // _options.method = "get";
+    // var response = await dio.request(
+    //   "projects/search/$keyWords/",
+    //   queryParameters: queryParameters,
+    //   options: _options,
+    // );
+
+    var response = await dio.get<List>(
+      "projects/search/$keyWords",
+      queryParameters: queryParameters,
+      options: _options,
+    );
+
+    return response.data.map((e) => RepoFeature.fromJson(e)).toList();
   }
 }

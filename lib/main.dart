@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
             }
           },
 
-          ///路由表
+          ///注册命名路由表
           routes: routers,
         );
       }),

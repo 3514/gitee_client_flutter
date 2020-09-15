@@ -105,7 +105,6 @@ class _HomeRouteState extends State<HomeRoute> {
               ))
           .toList(),
       currentIndex: _selectedIndex,
-      //fixedColor: Colors.blue,
       onTap: _onItemTapped,
     );
   }

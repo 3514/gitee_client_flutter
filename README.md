@@ -1,5 +1,9 @@
 # gitee_client_flutter
 
+## 参考
+
+**Flutter完整开发实战详解系列**🍎<https://wizardforcel.gitbooks.io/gsyflutterbook/content/Flutter-8.html>
+
 ## 项目结构
 ```
 文件夹	作用
@@ -12,8 +16,6 @@ widgets	APP内封装的一些Widget组件都在该目录下
 ```
 
 ## 国际化
-
-
 dart -> arb
 ```
 flutter pub pub run intl_translation:extract_to_arb --output-dir=target/directory
@@ -74,3 +76,10 @@ List<String> _tabs = tab_title_home.toList();
 List<String> _tabs = TabTitleHome.Recommend.titles;//_titles -> titles
 List<String> _tabs = TabTitleHome.values.map((e) => e.title).toList();//推荐
 ```
+
+
+## BUG
+```
+There are multiple heroes that share the same tag within a subtree.
+```
+todo  2020-09-15 17:28:33

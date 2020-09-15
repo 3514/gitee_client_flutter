@@ -12,7 +12,7 @@ class Global {
   static bool get isRelease => bool.fromEnvironment('dart.vm.product');
 
   ///缓存
-  static SharedPreferences _sp;
+  static SharedPreferences prefs;
   static Profile profile = Profile();
   static NetCache netCache = NetCache();
 
@@ -22,8 +22,8 @@ class Global {
   ///初始化全局信息
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
-    _sp = await SharedPreferences.getInstance();
-    var _profile = _sp.getString("profile");
+    prefs = await SharedPreferences.getInstance();
+    var _profile = prefs.getString(PREFS_PROFILE);
     if (_profile != null) {
       try {
         profile = Profile.fromJson(jsonDecode(_profile));
@@ -43,8 +43,5 @@ class Global {
   }
 
   ///持久化Profile
-  static saveProfile() => _sp.setString('profile', jsonEncode(profile.toJson()));
-
-  static navToPage(BuildContext context, String routeName, {Object arguments}) =>
-      Navigator.of(context).pushNamed(routeName, arguments: arguments);
+  static saveProfile() => prefs.setString(PREFS_PROFILE, jsonEncode(profile.toJson()));
 }

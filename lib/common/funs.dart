@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui'; //From sky_engine 👉 https://pub.dev/packages/sky_engine
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -108,23 +109,59 @@ void showLoading(context, [String text]) {
       });
 }
 
+//获取当前主题色
+Color getThemeColor(BuildContext context) => Theme.of(context).primaryColor;
+//获取状态栏高度
+double getStatusBarHeight() => MediaQueryData.fromWindow(window).padding.top;
 //获取屏幕宽
-double getScreenWidth(BuildContext context) {
-  return MediaQuery.of(context).size.width;
-}
-
+double getScreenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 //获取屏幕高
-double getScreenHeight(BuildContext context) {
-  return MediaQuery.of(context).size.height;
-}
-
+double getScreenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 //Base64加密
-String encodeBase64(String data) {
-  var content = utf8.encode(data);
-  return base64Encode(content);
+String encodeBase64(String data) => base64Encode(utf8.encode(data));
+//Base64解密
+String decodeBase64(String data) => utf8.decode(base64Decode(data));
+
+//计算文件大小
+calculateFileSize(int fileByte) {
+  if (fileByte < 1024) {
+    return fileByte.toString() + " B";
+  } else if (fileByte < 1024 * 1024) {
+    return _keepDecimal(fileByte / 1024) + " KB";
+  } else if (fileByte < 1024 * 1024 * 1024) {
+    return _keepDecimal(fileByte / 1024 / 1024) + " M";
+  } else {
+    return _keepDecimal(fileByte / 1024 / 1024 / 1024) + " G";
+  }
 }
 
-//Base64解密
-String decodeBase64(String data) {
-  return utf8.decode(base64Decode(data));
+//保留两位小数
+_keepDecimal(double data) {
+  String str = data.toString();
+  String decimal;
+  if (str.contains('.')) {
+    var arr = str.split('.');
+    decimal = arr[1].toString();
+    if (decimal.length > 2) {
+      decimal = decimal.substring(0, 2);
+    }
+    return arr[0].toString() + '.' + decimal;
+  } else {
+    return str;
+  }
 }
+
+navToPage(BuildContext context, String routeName, {Object arguments}) =>
+    Navigator.of(context).pushNamed(routeName, arguments: arguments);
+
+navToPage2({@required BuildContext context, @required Widget page}) => navToPage3(
+      context: context,
+      page: MaterialPageRoute(
+        builder: (context) => page,
+      ),
+    );
+
+navToPage3({@required BuildContext context, @required Route page}) => Navigator.push(
+      context,
+      page,
+    );

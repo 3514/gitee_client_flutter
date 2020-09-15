@@ -56,7 +56,7 @@ class HomeDrawer extends StatelessWidget {
             ),
           ),
           onTap: () {
-            if (!userModel.isLogin) Global.navToPage(context, page_login);
+            if (!userModel.isLogin) navToPage(context, page_login);
           },
         );
       },
@@ -73,12 +73,12 @@ class HomeDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.color_lens),
               title: Text(gm.theme),
-              onTap: () => Global.navToPage(context, page_theme),
+              onTap: () => navToPage(context, page_theme),
             ),
             ListTile(
               leading: const Icon(Icons.language),
               title: Text(gm.language),
-              onTap: () => Global.navToPage(context, page_language),
+              onTap: () => navToPage(context, page_language),
             ),
             Builder(builder: (context) {
               if (userModel.isLogin) {

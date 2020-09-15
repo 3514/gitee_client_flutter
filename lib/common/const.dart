@@ -4,6 +4,10 @@ import '../index.dart';
 const fontAliPuHui = 'aliPuHui';
 const fontMaterialIcons = 'MaterialIcons'; //字体(内置)
 
+///SharedPreference
+const PREFS_PROFILE = 'profile';
+const PREFS_SEARCH_HISTORY = 'search_history';
+
 ///UI Router
 const page_home = 'page_home';
 const page_login = 'page_login';
@@ -16,6 +20,9 @@ final routers = {
   page_theme: (context) => ThemeChangeRoute(),
   page_language: (context) => LanguageRoute(),
 };
+
+///Hero 转场动画
+const hero_tag_search = "tag_search";
 
 ///默认头像
 const image_avatar_default = "static/image/avatar_default.png";

@@ -2,8 +2,6 @@ import '../index.dart';
 
 ///码云首页仓库列表:推荐,热门,最近
 class RepoListRoute extends StatefulWidget {
-  RepoListRoute();
-
   @override
   State<StatefulWidget> createState() {
     return _RepoListRouteState();
@@ -52,7 +50,46 @@ class _RepoListRouteState extends State<RepoListRoute> with SingleTickerProvider
 
         ///导航栏右侧菜单
         actions: <Widget>[
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+          InkWell(
+            child: Hero(
+              tag: hero_tag_search,
+              child: Icon(Icons.search),
+            ),
+
+            // child: Hero(
+            //   tag: hero_tag_search,
+            //   child: IconButton(
+            //     icon: const Icon(Icons.search),
+            //     onPressed: () {
+            //       navToPage2(context: context, page: HeroAnimationRouteB());
+            //     },
+            //   ),
+            // ),
+
+            // child:  Hero(
+            //   tag: hero_tag_search, //唯一标记，前后两个路由页Hero的tag必须相同
+            //   child: ClipOval(
+            //     child: Image.asset(
+            //       "static/image/logo_dark.png",
+            //       width: 60.0,
+            //     ),
+            //   ),
+            // ),
+            onTap: () {
+              navToPage3(
+                context: context,
+                page: PageRouteBuilder(
+                  pageBuilder: (context, Animation animation, Animation secondaryAnimation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      //child: SearchPageRoute(), //路由页
+                      child: HeroAnimationRouteB(), //路由页
+                    );
+                  },
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: _buildBody(), //主页面
@@ -68,7 +105,7 @@ class _RepoListRouteState extends State<RepoListRoute> with SingleTickerProvider
       return Center(
         child: RaisedButton(
           child: Text(GmLocalizations.of(context).login),
-          onPressed: () => Global.navToPage(context, page_login),
+          onPressed: () => navToPage(context, page_login),
         ),
       );
     } else {
@@ -84,3 +121,18 @@ class _RepoListRouteState extends State<RepoListRoute> with SingleTickerProvider
   }
 }
 
+// 路由B
+class HeroAnimationRouteB extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.purple[50],
+      child: Center(
+        child: Hero(
+          tag: hero_tag_search, //唯一标记，前后两个路由页Hero的tag必须相同
+          child: Image.asset("static/image/logo_dark.png"),
+        ),
+      ),
+    );
+  }
+}
