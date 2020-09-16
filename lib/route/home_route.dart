@@ -30,6 +30,9 @@ class _HomeRouteState extends State<HomeRoute> {
       gm.navMe: Icons.account_circle,
     };
 
+    return RepoListRoute();
+
+    //todo 暂时不要底部导航...
     return Scaffold(
       bottomNavigationBar: _buildBottomNavigationBar(),
       body: WillPopScope(

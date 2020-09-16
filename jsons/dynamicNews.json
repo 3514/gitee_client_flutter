@@ -1,0 +1,81 @@
+{
+  "id": 94142765,
+  "content": "doubuxingle 提交一个 Pull Request !60 【轻量级 PR】：应用场景在于导出大数据表格时可以只查询一次，然后读取部分数据写入excel然后再重复读取及写入。避免多次查询时每次都要分页及统计总数",
+  "type": "pull_request_new",
+  "unread": true,
+  "mute": false,
+  "updated_at": "2020-09-15T15:42:35+08:00",
+  "url": "https://gitee.com/api/v5/notification/threads/94142765",
+  "html_url": "https://gitee.com/jfinal/jfinal/pulls/60",
+  "actor": {
+    "id": 5211614,
+    "login": "doubuxingle",
+    "name": "doubuxingle",
+    "avatar_url": "https://gitee.com/assets/no_portrait.png",
+    "url": "https://gitee.com/api/v5/users/doubuxingle",
+    "html_url": "https://gitee.com/doubuxingle",
+    "followers_url": "https://gitee.com/api/v5/users/doubuxingle/followers",
+    "following_url": "https://gitee.com/api/v5/users/doubuxingle/following_url{/other_user}",
+    "gists_url": "https://gitee.com/api/v5/users/doubuxingle/gists{/gist_id}",
+    "starred_url": "https://gitee.com/api/v5/users/doubuxingle/starred{/owner}{/repo}",
+    "subscriptions_url": "https://gitee.com/api/v5/users/doubuxingle/subscriptions",
+    "organizations_url": "https://gitee.com/api/v5/users/doubuxingle/orgs",
+    "repos_url": "https://gitee.com/api/v5/users/doubuxingle/repos",
+    "events_url": "https://gitee.com/api/v5/users/doubuxingle/events{/privacy}",
+    "received_events_url": "https://gitee.com/api/v5/users/doubuxingle/received_events",
+    "type": "User"
+  },
+  "repository": {
+    "id": 607,
+    "full_name": "jfinal/jfinal",
+    "human_name": "JFinal/JFinal",
+    "url": "https://gitee.com/api/v5/repos/jfinal/jfinal",
+    "namespace": {
+      "id": 836,
+      "type": "personal",
+      "name": "jfinal",
+      "path": "jfinal",
+      "html_url": "https://gitee.com/jfinal"
+    },
+    "path": "jfinal",
+    "name": "JFinal",
+    "owner": {
+      "id": 840,
+      "login": "jfinal",
+      "name": "JFinal",
+      "avatar_url": "https://portrait.gitee.com/uploads/avatars/user/0/840_jfinal_1580661334.png",
+      "url": "https://gitee.com/api/v5/users/jfinal",
+      "html_url": "https://gitee.com/jfinal",
+      "followers_url": "https://gitee.com/api/v5/users/jfinal/followers",
+      "following_url": "https://gitee.com/api/v5/users/jfinal/following_url{/other_user}",
+      "gists_url": "https://gitee.com/api/v5/users/jfinal/gists{/gist_id}",
+      "starred_url": "https://gitee.com/api/v5/users/jfinal/starred{/owner}{/repo}",
+      "subscriptions_url": "https://gitee.com/api/v5/users/jfinal/subscriptions",
+      "organizations_url": "https://gitee.com/api/v5/users/jfinal/orgs",
+      "repos_url": "https://gitee.com/api/v5/users/jfinal/repos",
+      "events_url": "https://gitee.com/api/v5/users/jfinal/events{/privacy}",
+      "received_events_url": "https://gitee.com/api/v5/users/jfinal/received_events",
+      "type": "User"
+    },
+    "description": "JFinal 是基于 Java 语言的极速 WEB + ORM 框架，其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展、Restful。在拥有Java语言所有优势的同时再拥有ruby、python、php等动态语言的开发效率！为您节约更多时间，去陪恋人、家人和朋友 :)",
+    "private": false,
+    "public": true,
+    "internal": false,
+    "fork": false,
+    "html_url": "https://gitee.com/jfinal/jfinal.git",
+    "ssh_url": "git@gitee.com:jfinal/jfinal.git"
+  },
+  "subject": {
+    "title": "【轻量级 PR】：扩展DbPro时复用build()",
+    "url": "https://gitee.com/api/v5/repos/jfinal/jfinal/pulls/60",
+    "latest_comment_url": null,
+    "type": "PullRequest"
+  },
+  "namespaces": [
+    {
+      "name": "JFinal/JFinal",
+      "html_url": "https://gitee.com/jfinal/jfinal",
+      "type": "project"
+    }
+  ]
+}

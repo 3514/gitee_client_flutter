@@ -69,6 +69,13 @@ class GiteeApi {
     //Global.profile.token = basic;
     return User.fromJson(r.data);
   }
+  // 消息通知, 未读消息 "" , 已读消息 "1"
+  // https://gitee.com/api/v3/user/notifications/?filter=""&all="1"
+
+  // 设置通知为已读
+  // https://gitee.com/api/v3/user/notifications/xxxx
+  void markNotificationRead(String notificationId){
+  }
 
   // 获取项目列表 https://gitee.com/api/v3/projects/featured/?page=1
   Future<List<RepoFeature>> getRepoList(

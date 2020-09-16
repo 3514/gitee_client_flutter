@@ -74,6 +74,12 @@ class _RepoListRouteState extends State<RepoListRoute> with SingleTickerProvider
                   ),
                 );
               }),
+          IconButton(
+            icon: const Icon(Icons.notifications_none),
+            onPressed: () {
+              toastBottom("通知");
+            },
+          ),
         ],
       ),
       body: _buildBody(), //主页面
