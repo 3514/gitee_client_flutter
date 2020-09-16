@@ -47,117 +47,12 @@ class _SearchPageRouteState extends State<SearchPageRoute>
   Widget build(BuildContext context) {
     backColor = getThemeColor(context);
 
-    // return  Hero(
-    //   tag: hero_tag_search,
-    //   child: Icon(
-    //     Icons.search,
-    //     color: Colors.grey,
-    //   ),
-    //   ),
-    // );
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             //搜索框，一个状态栏大小的背景
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: MySliverPersistentHeaderDelegate(
-                minHeight: statusBarHeight + 57,
-                maxHeight: statusBarHeight + 57,
-                child: Container(
-                  padding: EdgeInsets.only(top: statusBarHeight),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 15, right: 15),
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: backColor,
-                            size: 20,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: TextField(
-                            controller: _editController,
-                            autofocus: false,
-                            maxLines: 1,
-                            style: TextStyle(fontSize: 14),
-                            cursorColor: backColor,
-                            textInputAction: TextInputAction.search,
-                            onSubmitted: (val) {
-                              _beginSearch();
-                            },
-                            decoration: InputDecoration(
-                              isDense: true,
-                              //密集排布
-                              prefixIcon: InkWell(
-                                child: Hero(
-                                  tag: hero_tag_search,
-                                  child: Icon(
-                                    Icons.search,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                onTap: () {
-                                  _beginSearch();
-                                },
-                              ),
-                              suffixIcon: InkWell(
-                                child: Icon(
-                                  Icons.clear,
-                                  color: Colors.grey,
-                                ),
-                                onTap: () {
-                                  _editController.clear();
-                                },
-                              ),
-                              hintText: '搜索或者跳转到...',
-                              hintStyle: TextStyle(fontSize: 14),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: backColor,
-                                    width: .5,
-                                  ),
-                                  borderRadius: BorderRadius.all(Radius.circular(5))),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: backColor,
-                                    width: .5,
-                                  ),
-                                  borderRadius: BorderRadius.all(Radius.circular(5))),
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 16, right: 16),
-                            child: Text(
-                              "搜索",
-                              style: TextStyle(fontSize: 17, color: backColor),
-                            ),
-                          ),
-                          onTap: () {
-                            _beginSearch();
-                          }),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            _buildSearchBox(),
 
             //搜索历史记录
             SliverPersistentHeader(
@@ -268,6 +163,108 @@ class _SearchPageRouteState extends State<SearchPageRoute>
     }
   }
 
+  //搜索框
+  Widget _buildSearchBox() => SliverPersistentHeader(
+        pinned: true,
+        delegate: MySliverPersistentHeaderDelegate(
+          minHeight: statusBarHeight + 57,
+          maxHeight: statusBarHeight + 57,
+          child: Container(
+            padding: EdgeInsets.only(top: statusBarHeight),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                GestureDetector(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 15, right: 15),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: backColor,
+                      size: 22,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    child: TextField(
+                      controller: _editController,
+                      autofocus: false,
+                      maxLines: 1,
+                      style: TextStyle(fontSize: 14),
+                      cursorColor: backColor,
+                      textInputAction: TextInputAction.search,
+                      onSubmitted: (val) {
+                        _beginSearch();
+                      },
+                      decoration: InputDecoration(
+                        //密集排布
+                        isDense: true,
+                        prefixIcon: InkWell(
+                          highlightColor: Colors.lightBlueAccent,
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.grey,
+                          ),
+                          onTap: () {
+                            _beginSearch();
+                          },
+                        ),
+                        suffixIcon: InkWell(
+                          child: Icon(
+                            Icons.clear,
+                            color: Colors.grey,
+                          ),
+                          onTap: () {
+                            _editController.clear();
+                          },
+                        ),
+                        hintText: '搜索或者跳转到...',
+                        hintStyle: TextStyle(fontSize: 14),
+
+                        filled: true,
+                        fillColor: Colors.grey[50],
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: backColor,
+                            width: .3,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 15, right: 15),
+                      child: Text(
+                        "搜索",
+                        style: TextStyle(fontSize: 15, color: backColor),
+                      ),
+                    ),
+                    onTap: () {
+                      _beginSearch();
+                    }),
+              ],
+            ),
+          ),
+        ),
+      );
+
+  //搜索历史
   Widget _buildHistory() {
     if (historyData == null || historyData.length == 0) {
       return Container(
@@ -309,9 +306,9 @@ class _SearchPageRouteState extends State<SearchPageRoute>
   }
 
   //清空历史记录
-  Future<bool> _showClearHistoryDialog() {
+  void _showClearHistoryDialog() {
     if (historyData != null && historyData.length > 0) {
-      return showDialog<bool>(
+      showDialog<bool>(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -337,26 +334,21 @@ class _SearchPageRouteState extends State<SearchPageRoute>
     }
   }
 
+  //搜索结果
   _buildBody() {
     if (searchWords == null || searchWords.length <= 0) {
       return Center(
         child: Padding(
           padding: EdgeInsets.only(top: 60),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Icon(
+          child: InkWell(
+            child: Hero(
+              tag: hero_tag_search,
+              child: Icon(
                 Icons.search,
                 color: Theme.of(context).primaryColor,
-                size: 150,
+                size: 120,
               ),
-              Padding(
-                  padding: EdgeInsets.only(top: 0),
-                  child: Text(
-                    "哥们，搜点啥",
-                    style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 25),
-                  ))
-            ],
+            ),
           ),
         ),
       );

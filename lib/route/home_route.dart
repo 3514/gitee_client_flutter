@@ -18,7 +18,7 @@ class _HomeRouteState extends State<HomeRoute> {
     _pageList = List();
     _pageList.add(RepoListRoute());
     _pageList.add(LanguageRoute());
-    _pageList.add(RepoListRoute());
+    _pageList.add(LanguageRoute());
   }
 
   @override

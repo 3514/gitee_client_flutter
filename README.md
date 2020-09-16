@@ -79,7 +79,17 @@ List<String> _tabs = TabTitleHome.values.map((e) => e.title).toList();//推荐
 
 
 ## BUG
+
+
+##### 1. `There are multiple heroes that share the same tag within a subtree.`
+
+Fixed:
+```dart
+//首页底部导航测试时候,初始化了两个 RepoListRoute ,导致 tag 被注册了两次...￣□￣｜｜
+_pageList = List();
+_pageList.add(RepoListRoute());
+_pageList.add(LanguageRoute());
+_pageList.add(RepoListRoute());//改用其他页面路由即可
 ```
-There are multiple heroes that share the same tag within a subtree.
-```
-todo  2020-09-15 17:28:33
+##### 2. `Invalid argument(s): No host specified in URI xxx.png`
+`cached_network_image: ^2.3.2+1` -> `CachedNetworkImage` 

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../index.dart';
 
 ///码云首页仓库列表:推荐,热门,最近
@@ -51,45 +53,27 @@ class _RepoListRouteState extends State<RepoListRoute> with SingleTickerProvider
         ///导航栏右侧菜单
         actions: <Widget>[
           InkWell(
-            child: Hero(
-              tag: hero_tag_search,
-              child: Icon(Icons.search),
-            ),
-
-            // child: Hero(
-            //   tag: hero_tag_search,
-            //   child: IconButton(
-            //     icon: const Icon(Icons.search),
-            //     onPressed: () {
-            //       navToPage2(context: context, page: HeroAnimationRouteB());
-            //     },
-            //   ),
-            // ),
-
-            // child:  Hero(
-            //   tag: hero_tag_search, //唯一标记，前后两个路由页Hero的tag必须相同
-            //   child: ClipOval(
-            //     child: Image.asset(
-            //       "static/image/logo_dark.png",
-            //       width: 60.0,
-            //     ),
-            //   ),
-            // ),
-            onTap: () {
-              navToPage3(
-                context: context,
-                page: PageRouteBuilder(
-                  pageBuilder: (context, Animation animation, Animation secondaryAnimation) {
-                    return FadeTransition(
-                      opacity: animation,
-                      //child: SearchPageRoute(), //路由页
-                      child: HeroAnimationRouteB(), //路由页
-                    );
-                  },
-                ),
-              );
-            },
-          ),
+              child: Hero(
+                tag: hero_tag_search,
+                child: const Icon(Icons.search),
+              ),
+              onTap: () {
+                //navToPage2(context: context, page: SearchPageRoute());
+                navToPage3(
+                  context: context,
+                  page: PageRouteBuilder(
+                    pageBuilder: (context, Animation animation, Animation secondaryAnimation) {
+                      return ScaleTransition(
+                        scale: CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.ease,
+                        ),
+                        child: SearchPageRoute(), //路由页
+                      );
+                    },
+                  ),
+                );
+              }),
         ],
       ),
       body: _buildBody(), //主页面
@@ -118,21 +102,5 @@ class _RepoListRouteState extends State<RepoListRoute> with SingleTickerProvider
         }).toList(),
       );
     }
-  }
-}
-
-// 路由B
-class HeroAnimationRouteB extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.purple[50],
-      child: Center(
-        child: Hero(
-          tag: hero_tag_search, //唯一标记，前后两个路由页Hero的tag必须相同
-          child: Image.asset("static/image/logo_dark.png"),
-        ),
-      ),
-    );
   }
 }

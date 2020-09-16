@@ -69,11 +69,11 @@ class GmLocalizations {
 
   String get cancel => Intl.message('cancel', name: 'cancel');
 
-  String get navGitee => Intl.message('navGitee', name: 'navGitee');
+  String get navGitee => Intl.message('Gitee', name: 'navGitee');
 
-  String get navGitHub => Intl.message('navGitHub', name: 'navGitHub');
+  String get navGitHub => Intl.message('GitHub', name: 'navGitHub');
 
-  String get navMe => Intl.message('navMe', name: 'navMe');
+  String get navMe => Intl.message('Me', name: 'navMe');
 }
 
 //Locale代理类

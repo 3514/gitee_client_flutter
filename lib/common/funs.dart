@@ -5,6 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gitee_client_flutter/common/const.dart';
 
+bool checkUrl(String url) => url != null && url.startsWith("http");
+
 Widget getAvatarCircle(
   String url, {
   double radius = 30.0,
@@ -13,16 +15,22 @@ Widget getAvatarCircle(
   var placeholder = Image.asset(image_avatar_default, //默认头像
       width: radius,
       height: radius);
-  return ClipOval(
-    child: CachedNetworkImage(
-      imageUrl: url,
-      width: radius,
-      height: radius,
-      fit: fit,
-      placeholder: (context, url) => placeholder,
-      errorWidget: (context, url, error) => placeholder,
-    ),
-  );
+  if (checkUrl(url)) {
+    return ClipOval(
+      child: CachedNetworkImage(
+        imageUrl: url,
+        width: radius,
+        height: radius,
+        fit: fit,
+        placeholder: (context, url) => placeholder,
+        errorWidget: (context, url, error) => placeholder,
+      ),
+    );
+  } else {
+    return ClipOval(
+      child: placeholder,
+    );
+  }
 }
 
 Widget getAvatarRect(
@@ -35,17 +43,25 @@ Widget getAvatarRect(
   var placeholder = Image.asset(image_avatar_default, //默认头像
       width: width,
       height: height);
-  return ClipRRect(
-    borderRadius: borderRadius ?? BorderRadius.circular(30),
-    child: CachedNetworkImage(
-      imageUrl: url,
-      width: width,
-      height: height,
-      fit: fit,
-      placeholder: (context, url) => placeholder,
-      errorWidget: (context, url, error) => placeholder,
-    ),
-  );
+
+  if (checkUrl(url)) {
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.circular(30),
+      child: CachedNetworkImage(
+        imageUrl: url,
+        width: width,
+        height: height,
+        fit: fit,
+        placeholder: (context, url) => placeholder,
+        errorWidget: (context, url, error) => placeholder,
+      ),
+    );
+  } else {
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.circular(30),
+      child: placeholder,
+    );
+  }
 }
 
 void showToast(
@@ -70,17 +86,14 @@ void showLoading(context, [String text]) {
       builder: (context) {
         return Center(
           child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(3.0),
-                boxShadow: [
-                  //阴影
-                  BoxShadow(
-                    color: Colors.black12,
-                    //offset: Offset(2.0,2.0),
-                    blurRadius: 10.0,
-                  )
-                ]),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(3.0), boxShadow: [
+              //阴影
+              BoxShadow(
+                color: Colors.black12,
+                //offset: Offset(2.0,2.0),
+                blurRadius: 10.0,
+              )
+            ]),
             padding: EdgeInsets.all(16),
             margin: EdgeInsets.all(16),
             constraints: BoxConstraints(minHeight: 120, minWidth: 180),

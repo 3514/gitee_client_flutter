@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-09-15T11:26:31.788306",
+  "@@last_modified": "2020-09-16T10:58:04.934326",
   "title": "Gitee",
   "@title": {
     "description": "Title for the Gitee application",
@@ -86,17 +86,17 @@
     "type": "text",
     "placeholders": {}
   },
-  "navGitee": "navGitee",
+  "navGitee": "Gitee",
   "@navGitee": {
     "type": "text",
     "placeholders": {}
   },
-  "navGitHub": "navGitHub",
+  "navGitHub": "GitHub",
   "@navGitHub": {
     "type": "text",
     "placeholders": {}
   },
-  "navMe": "navMe",
+  "navMe": "Me",
   "@navMe": {
     "type": "text",
     "placeholders": {}
