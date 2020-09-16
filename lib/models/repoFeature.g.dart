@@ -28,7 +28,7 @@ RepoFeature _$RepoFeatureFromJson(Map<String, dynamic> json) {
         : Namespace.fromJson(json['namespace'] as Map<String, dynamic>)
     ..last_push_at = json['last_push_at'] as String
     ..parent_id = json['parent_id'] as num
-    ..fork = json['fork?'] as bool
+    ..fork = json['fork'] as bool
     ..forks_count = json['forks_count'] as num
     ..stars_count = json['stars_count'] as num
     ..watches_count = json['watches_count'] as num
@@ -59,7 +59,7 @@ Map<String, dynamic> _$RepoFeatureToJson(RepoFeature instance) =>
       'namespace': instance.namespace,
       'last_push_at': instance.last_push_at,
       'parent_id': instance.parent_id,
-      'fork?': instance.fork,
+      'fork': instance.fork,
       'forks_count': instance.forks_count,
       'stars_count': instance.stars_count,
       'watches_count': instance.watches_count,

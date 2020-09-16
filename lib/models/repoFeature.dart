@@ -23,8 +23,7 @@ class RepoFeature {
     Namespace namespace;
     String last_push_at;
     num parent_id;
-    @JsonKey(name: 'fork?')
-    bool fork;
+    bool fork?;
     num forks_count;
     num stars_count;
     num watches_count;

@@ -1,3 +1,4 @@
+export 'launch.dart';
 export 'login.dart';
 export 'home_route.dart';
 export 'home_tab_viewpager.dart';

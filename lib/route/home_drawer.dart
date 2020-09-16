@@ -35,7 +35,7 @@ class HomeDrawer extends StatelessWidget {
                   // 如果已登录，则显示用户头像；若未登录，则显示默认头像
                   child: userModel.isLogin
                       ? getAvatarCircle(
-                    userModel.user.portrait_url,
+                    userModel.user.avatar_url,
                     radius: 80.0,
                   )
                       : Image.asset(

@@ -33,7 +33,7 @@ class _RepoItemWidgetState extends State<RepoItemWidget> {
                 dense: true,
                 leading: getAvatarRect(
                   //项目owner头像
-                  widget.repo.owner.portrait_url,
+                  widget.repo.owner.avatar_url,
                   width: 35.0,
                   fit: BoxFit.fill,
                   borderRadius: BorderRadius.circular(50),

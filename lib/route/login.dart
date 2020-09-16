@@ -111,7 +111,7 @@ class _LoginRouteState extends State<LoginRoute> {
       showLoading(context);
       User user;
       try {
-        user = await GiteeApi(context).login(_nameController.text, _pwdController.text);
+        user = await GiteeApi().login(_nameController.text, _pwdController.text);
         // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新
         Provider.of<UserModel>(context, listen: false).user = user;
       } catch (e) {

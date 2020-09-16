@@ -20,7 +20,7 @@ class UserModel extends ProfileChangeNotifier {
   //用户信息发生变化，更新用户信息并通知依赖它的子孙Widgets更新
   set user(User user) {
     if (user?.id != _profile.user?.id) {
-      _profile.lastLogin = _profile.user?.username?.toString();
+      _profile.lastLogin = _profile.user?.name?.toString();
       _profile.user = user;
       notifyListeners();
     }
@@ -30,8 +30,8 @@ class UserModel extends ProfileChangeNotifier {
 ///主题
 class ThemeModel extends ProfileChangeNotifier {
   // 获取当前主题, 如果为设置主题, 则默认使用第一个主题
-  ColorSwatch get theme => Global.themes
-      .firstWhere((element) => element.value == _profile.theme, orElse: () => Global.themes[0]);
+  ColorSwatch get theme =>
+      Global.themes.firstWhere((element) => element.value == _profile.theme, orElse: () => Global.themes[0]);
 
   // 主题改变后, 通知其依赖项, 新主题会立即生效
   set theme(ColorSwatch color) {
