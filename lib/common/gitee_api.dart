@@ -13,6 +13,7 @@ class _NettingPath {
   static final user = "api/v5/user";
   static final repos = "api/v5/user/repos";
   static final issues = "api/v5/issues";
+  static final notifications = "api/v5/notifications/count";
   static final readme = "api/v5/repos/{owner}/{repo}/readme";
   static final reposContents = "api/v5/repos/{owner}/{repo}/contents/{path}";
   static final star = "api/v5/user/starred/{owner}/{repo}";
@@ -113,10 +114,27 @@ class GiteeApi {
       },
       options: _options,
     );
-    //return response.data.map((e) => RepoV3.fromJson(e)).toList();
-    //return response.data; // dioV5.get<User>(
-    return User.fromJson(response.data);// dioV5.get(
+    // dioV5.get<User>(
+    return User.fromJson(response.data); // dioV5.get(
   }
+
+  // 获取授权用户的通知数 {"total_count":89,"notification_count":89,"message_count":0}
+  // https://gitee.com/api/v5/notifications/count?access_token=b552c012800a541dac500b4f8fca1f11&unread=true
+  Future<String> notificationCount(bool unread) async {
+    if (!OAuth().isAuthorized) return null;
+    Response response = await dioV5.get(
+      _NettingPath.notifications,
+      queryParameters: {
+        //true 未读消息
+        "unread": '${unread ?? true}',
+        ACCESS_TOKEN: OAuth().token(),
+      },
+    );
+    return response.data['notification_count']?.toString();
+  }
+
+  // 列出授权用户的所有通知 todo 2020-09-17 17:24:50
+  // https://gitee.com/api/v5/swagger#/getV5NotificationsThreads
 
   // 获取项目列表 , 推荐项目,热门项目,最近项目
   // https://gitee.com/api/v3/projects/featured/?page=1
@@ -154,14 +172,6 @@ class GiteeApi {
   // https://gitee.com/api/v3/projects/search/jfinal?page=3
   @deprecated
   Future<List<RepoV3>> searchRepos({@required String keyWords, Map<String, dynamic> queryParameters}) async {
-    ///dio.request
-    // _options.method = "get";
-    // var response = await dio.request(
-    //   "projects/search/$keyWords/",
-    //   queryParameters: queryParameters,
-    //   options: _options,
-    // );
-
     var response = await dioV3.get<List>(
       "projects/search/$keyWords",
       queryParameters: queryParameters,
@@ -171,9 +181,7 @@ class GiteeApi {
   }
 
   Future repos(int page) async {
-    if (!OAuth().isAuthorized) {
-      return null;
-    }
+    if (!OAuth().isAuthorized) return null;
     Response response = await dioV5.get(
       _NettingPath.repos,
       queryParameters: {
@@ -187,9 +195,7 @@ class GiteeApi {
   }
 
   Future issues(int page) async {
-    if (!OAuth().isAuthorized) {
-      return null;
-    }
+    if (!OAuth().isAuthorized) return null;
     Response response = await dioV5.get(
       _NettingPath.issues,
       queryParameters: {
@@ -306,24 +312,4 @@ class GiteeApi {
     Response response = await dioV5.get(_NettingPath.watchUsers, queryParameters: data);
     return response.data;
   }
-
-//
-// Options _restfulWrapper(Options options) {
-//   String path = options.path;
-//   var data = options.data as Map<String, dynamic>;
-//   RegExp regExp = RegExp(r"({\w+})");
-//   var matches = regExp.allMatches(path);
-//   matches.forEach((match) {
-//     String key = match.group(0);
-//     String value = options.data[key];
-//     assert(value != null);
-//     path = path.replaceAll(RegExp(key), value);
-//     data.remove(key);
-//   });
-//   print(path);
-//   print(data);
-//   options.path = path;
-//   options.data = data;
-//   return options;
-// }
 }

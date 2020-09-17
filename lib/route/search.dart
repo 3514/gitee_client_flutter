@@ -346,7 +346,7 @@ class _SearchPageRouteState extends State<SearchPageRoute>
               child: Icon(
                 Icons.search,
                 color: Theme.of(context).primaryColor,
-                size: 120,
+                size: 90,
               ),
             ),
           ),

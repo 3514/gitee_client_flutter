@@ -35,7 +35,7 @@ class _RepoItemWidgetState extends State<RepoItemWidget> {
                   //项目owner头像
                   widget.repo.owner.avatar_url ?? widget.repo.owner.portrait_url,
                   width: 35.0,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   borderRadius: BorderRadius.circular(50),
                 ),
                 title: Text(

@@ -42,21 +42,14 @@ class _RepoListRouteState extends State<RepoListRoute> with SingleTickerProvider
 
         bottom: TabBar(
           controller: _tabController,
-          tabs: _tabs
-              .map((e) => Tab(
-                    text: e.title,
-                  ))
-              .toList(),
+          tabs: _tabs.map((e) => Tab(text: e.title)).toList(),
           isScrollable: false,
         ),
 
         ///导航栏右侧菜单
         actions: <Widget>[
           InkWell(
-              child: Hero(
-                tag: hero_tag_search,
-                child: const Icon(Icons.search),
-              ),
+              child: Hero(tag: hero_tag_search, child: const Icon(Icons.search)),
               onTap: () {
                 //navToPage2(context: context, page: SearchPageRoute());
                 navToPage3(
@@ -64,23 +57,21 @@ class _RepoListRouteState extends State<RepoListRoute> with SingleTickerProvider
                   page: PageRouteBuilder(
                     pageBuilder: (context, Animation animation, Animation secondaryAnimation) {
                       return ScaleTransition(
-                        scale: CurvedAnimation(
-                          parent: animation,
-                          curve: Curves.ease,
-                        ),
+                        scale: CurvedAnimation(parent: animation, curve: Curves.ease),
                         child: SearchPageRoute(), //路由页
                       );
                     },
                   ),
                 );
               }),
-          IconButton(
-            icon: const Icon(Icons.notifications_none),
+          BadgeWidget(
+            future: GiteeApi().notificationCount(true),
+            centerIconData: Icons.notifications_none,
+            smallTextBgColor: Colors.red,
+            smallTextMarginRight: 12,
+            smallTextMarginTop: 12,
             onPressed: () {
-              toastBottom("通知");
-
-
-
+              toastBottom("通知 todo");
             },
           ),
         ],
