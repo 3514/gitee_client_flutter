@@ -18,19 +18,19 @@ class _HomeRouteState extends State<HomeRoute> {
     _pageList = List();
     _pageList.add(RepoListRoute());
     _pageList.add(LanguageRoute());
-    _pageList.add(LanguageRoute());
+    _pageList.add(ThemeChangeRoute());
   }
 
   @override
   Widget build(BuildContext context) {
     var gm = GmLocalizations.of(context);
     navItemMap = {
-      gm.navGitee: Icons.folder_special,
-      gm.navGitHub: Icons.folder,
+      gm.navHome: Icons.folder_special,
+      gm.navDynamic: Icons.wb_sunny,
       gm.navMe: Icons.account_circle,
     };
 
-    return RepoListRoute();
+    // return RepoListRoute();
 
     //todo 暂时不要底部导航...
     return Scaffold(

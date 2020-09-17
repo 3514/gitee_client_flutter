@@ -14,6 +14,15 @@ states	保存APP中需要跨组件共享的状态类
 routes	存放所有路由页面类
 widgets	APP内封装的一些Widget组件都在该目录下
 ```
+### 接口版本V3和V5
+api v5 头像`avatar_url` ; v3 头像`portrait_url`
+
+`User` -> `models/user.dart`
+```dart
+String avatar_url;        //
+@JsonKey(name: "avatar_url")
+String portrait_url;
+```
 
 ## 国际化
 dart -> arb

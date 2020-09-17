@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'auth.g.dart';
+part 'oauth.g.dart';
 
 @JsonSerializable()
-class Auth {
-    Auth();
+class Oauth {
+    Oauth();
 
     String access_token;
     String token_type;
@@ -13,6 +13,6 @@ class Auth {
     String scope;
     num created_at;
     
-    factory Auth.fromJson(Map<String,dynamic> json) => _$AuthFromJson(json);
-    Map<String, dynamic> toJson() => _$AuthToJson(this);
+    factory Oauth.fromJson(Map<String,dynamic> json) => _$OauthFromJson(json);
+    Map<String, dynamic> toJson() => _$OauthToJson(this);
 }

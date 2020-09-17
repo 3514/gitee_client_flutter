@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'namespace.g.dart';
+part 'namespaceV3.g.dart';
 
 @JsonSerializable()
-class Namespace {
-    Namespace();
+class NamespaceV3 {
+    NamespaceV3();
 
     num id;
     String name;
@@ -24,6 +24,6 @@ class Namespace {
     bool outsourced;
     String avatar;
     
-    factory Namespace.fromJson(Map<String,dynamic> json) => _$NamespaceFromJson(json);
-    Map<String, dynamic> toJson() => _$NamespaceToJson(this);
+    factory NamespaceV3.fromJson(Map<String,dynamic> json) => _$NamespaceV3FromJson(json);
+    Map<String, dynamic> toJson() => _$NamespaceV3ToJson(this);
 }

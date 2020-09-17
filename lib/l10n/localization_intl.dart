@@ -62,16 +62,15 @@ class GmLocalizations {
 
   String get logout => Intl.message('logout', name: 'logout');
 
-  String get logoutTip =>
-      Intl.message('Are you sure you want to quit your current account?', name: 'logoutTip');
+  String get logoutTip => Intl.message('Are you sure you want to quit your current account?', name: 'logoutTip');
 
   String get yes => Intl.message('yes', name: 'yes');
 
   String get cancel => Intl.message('cancel', name: 'cancel');
 
-  String get navGitee => Intl.message('Gitee', name: 'navGitee');
+  String get navHome => Intl.message('Home', name: 'navHome');
 
-  String get navGitHub => Intl.message('GitHub', name: 'navGitHub');
+  String get navDynamic => Intl.message('Dynamic', name: 'navDynamic');
 
   String get navMe => Intl.message('Me', name: 'navMe');
 }

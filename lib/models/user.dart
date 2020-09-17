@@ -10,6 +10,8 @@ class User {
     String login;
     String name;
     String avatar_url;
+    @JsonKey(name: "avatar_url")
+    String portrait_url;
     String url;
     String html_url;
     String followers_url;

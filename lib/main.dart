@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           onGenerateTitle: (context) {
             return GmLocalizations.of(context).title;
           },
-          home: HomeRoute(),
+          home: LaunchWidget(),
 
           ///语言
           locale: localeModel.getLocale(),

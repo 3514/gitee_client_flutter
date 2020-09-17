@@ -3,7 +3,7 @@ import '../index.dart';
 //项目列表 ItemView
 class RepoItemWidget extends StatefulWidget {
   RepoItemWidget(this.repo) : super(key: ValueKey(repo.id));
-  final RepoFeature repo;
+  final RepoV3 repo;
 
   @override
   _RepoItemWidgetState createState() {
@@ -15,7 +15,7 @@ class _RepoItemWidgetState extends State<RepoItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(bottom: 5.0),
       child: Material(
         color: Colors.white,
         shape: BorderDirectional(
@@ -25,7 +25,7 @@ class _RepoItemWidgetState extends State<RepoItemWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
+          padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -33,7 +33,7 @@ class _RepoItemWidgetState extends State<RepoItemWidget> {
                 dense: true,
                 leading: getAvatarRect(
                   //项目owner头像
-                  widget.repo.owner.avatar_url,
+                  widget.repo.owner.avatar_url ?? widget.repo.owner.portrait_url,
                   width: 35.0,
                   fit: BoxFit.fill,
                   borderRadius: BorderRadius.circular(50),
@@ -56,7 +56,7 @@ class _RepoItemWidgetState extends State<RepoItemWidget> {
                   widget.repo.language ?? "",
                   style: TextStyle(
                     color: Colors.deepOrange[700],
-                    fontSize: 12,
+                    fontSize: 11,
                   ),
                 ),
               ),

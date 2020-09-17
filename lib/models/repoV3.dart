@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 import "user.dart";
-import "namespace.dart";
-part 'repoFeature.g.dart';
+import "namespaceV3.dart";
+part 'repoV3.g.dart';
 
 @JsonSerializable()
-class RepoFeature {
-    RepoFeature();
+class RepoV3 {
+    RepoV3();
 
     num id;
     String name;
@@ -20,10 +20,11 @@ class RepoFeature {
     bool pull_requests_enabled;
     bool wiki_enabled;
     String created_at;
-    Namespace namespace;
+    NamespaceV3 namespace;
     String last_push_at;
     num parent_id;
-    bool fork?;
+    @JsonKey(name: "fork?")
+    bool fork;
     num forks_count;
     num stars_count;
     num watches_count;
@@ -34,7 +35,7 @@ class RepoFeature {
     String relation;
     num recomm;
     String parent_path_with_namespace;
-    
-    factory RepoFeature.fromJson(Map<String,dynamic> json) => _$RepoFeatureFromJson(json);
-    Map<String, dynamic> toJson() => _$RepoFeatureToJson(this);
+
+    factory RepoV3.fromJson(Map<String,dynamic> json) => _$RepoV3FromJson(json);
+    Map<String, dynamic> toJson() => _$RepoV3ToJson(this);
 }

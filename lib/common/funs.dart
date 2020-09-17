@@ -176,11 +176,11 @@ void toastOriginal(String text, ToastGravity gravity) {
   Fluttertoast.showToast(
       msg: "$text",
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: gravity ?? ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.black38,
+      backgroundColor: Colors.black54,
       textColor: Colors.white,
-      fontSize: 14.0);
+      fontSize: 13.0);
 }
 
 navToPage(BuildContext context, String routeName, {Object arguments}) =>

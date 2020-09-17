@@ -9,68 +9,75 @@ class OAuth {
     return _shared;
   }
 
-  int expiresIn = 0;
-  String refreshToken;
-  DateTime createdAt;
-  String accessToken;
-  User user;
+  Oauth _oauth;
+  DateTime _createdAt;
+  User _user;
+
+  String token() => _oauth?.access_token ?? Global.profile.oauth.access_token;
 
   void updateUser(User newUser) {
-    user = newUser;
+    _user = newUser;
   }
 
   ///程序启动时调用，检查本地用户信息
   Future prepare() async {
-    // Netting().loginObservable.listen((data) {
-    //   _storeToken(data);
-    // });
-    // Netting().userObservable.map((data) => User.fromJson(data)).listen((data) => user = data);
+    _oauth = Global.profile.oauth;
+    if (_oauth == null) return this;
 
-    if (accessToken == null) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      accessToken = prefs.getString("access_token");
-      refreshToken = prefs.getString("refresh_token");
-      expiresIn = prefs.getInt("expires_in") ?? 0;
-      createdAt = DateTime.fromMillisecondsSinceEpoch((prefs.getInt("created_at") ?? 0) * 1000);
+    _formatCreatedAt((_oauth?.created_at as int) ?? 0);
+    if (isExpired) {
+      await refreshAccessToken();
+      return this;
     }
-    print("可访问:${!isExpired}");
+    if (_oauth?.access_token == null) {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      _oauth.access_token = prefs.getString("access_token");
+      _oauth.refresh_token = prefs.getString("refresh_token");
+      _oauth.expires_in = prefs.getInt("expires_in") ?? 0;
+      _formatCreatedAt(prefs.getInt("created_at") ?? 0);
+    }
+    print("prepare: ${!isExpired}");
     return this;
   }
 
-  Future<void> _storeToken(Map<String, dynamic> data) async {
+  Future<void> storeToken(Map<String, dynamic> data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    accessToken = data["access_token"];
-    refreshToken = data["refresh_token"];
-    expiresIn = data["expires_in"];
+    _oauth = Oauth();
+    _oauth.access_token = data["access_token"];
+    _oauth.refresh_token = data["refresh_token"];
+    _oauth.expires_in = data["expires_in"];
     int time = data["created_at"] ?? 0;
-    createdAt = DateTime.fromMillisecondsSinceEpoch(time * 1000);
-    prefs.setInt("expires_in", expiresIn);
-    prefs.setString("access_token", accessToken);
-    prefs.setString("refresh_token", refreshToken);
+    _oauth.created_at = time;
+    _formatCreatedAt(time);
+    Global.profile.oauth = _oauth;
+    Global.profile.oauth.access_token = _oauth.access_token; //更新profile中的token信息
+
+    prefs.setInt("expires_in", _oauth.expires_in);
+    prefs.setString("access_token", _oauth.access_token);
+    prefs.setString("refresh_token", _oauth.refresh_token);
     prefs.setInt("created_at", time);
-    print("肯定可访问");
+    print("storeToken completed -->-->--> ${_oauth?.toString()} \n");
   }
 
   ///是否已经登录
   /// *仅判断本地是否已经存有user*
   bool get isAuthorized {
-    return accessToken != null;
+    return _oauth.access_token != null;
   }
 
   ///判断是access_token是否过期
   bool get isExpired {
-    if (createdAt != null && isAuthorized) {
-      return createdAt.add(new Duration(seconds: expiresIn)).isBefore(new DateTime.now());
-    } else {
-      return true;
+    if (_createdAt != null && isAuthorized) {
+      return _createdAt.add(new Duration(seconds: _oauth.expires_in)).isBefore(new DateTime.now());
     }
+    return true;
   }
 
   Future<bool> refreshAccessToken() async {
     try {
-      var data = await GiteeApi().refreshToken(refreshToken);
+      var data = await GiteeApi().refreshToken(_oauth.refresh_token);
       print(data);
-      await _storeToken(data);
+      await storeToken(data);
       return true;
     } catch (e) {
       print(e);
@@ -78,14 +85,16 @@ class OAuth {
     }
   }
 
+  DateTime _formatCreatedAt(int time) => _createdAt = DateTime.fromMillisecondsSinceEpoch(time * 1000);
+
   @override
   String toString() {
-    return "accessToken: $accessToken | refreshToken: $refreshToken | 有效期: $expiresIn | 创建日期：$createdAt | 是否过期：$isExpired";
+    return "accessToken: ${_oauth.access_token} | refreshToken: ${_oauth.refresh_token} "
+        "| 有效期: ${_oauth.expires_in} | 创建日期：$_createdAt | 是否过期：$isExpired";
   }
 
   void logout() {
-    refreshToken = null;
-    accessToken = null;
-    expiresIn = 0;
+    Global.profile.oauth = null;
+    _createdAt = null;
   }
 }

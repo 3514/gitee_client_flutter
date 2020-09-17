@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'repoFeature.dart';
+part of 'repoV3.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RepoFeature _$RepoFeatureFromJson(Map<String, dynamic> json) {
-  return RepoFeature()
+RepoV3 _$RepoV3FromJson(Map<String, dynamic> json) {
+  return RepoV3()
     ..id = json['id'] as num
     ..name = json['name'] as String
     ..default_branch = json['default_branch'] as String
@@ -25,7 +25,7 @@ RepoFeature _$RepoFeatureFromJson(Map<String, dynamic> json) {
     ..created_at = json['created_at'] as String
     ..namespace = json['namespace'] == null
         ? null
-        : Namespace.fromJson(json['namespace'] as Map<String, dynamic>)
+        : NamespaceV3.fromJson(json['namespace'] as Map<String, dynamic>)
     ..last_push_at = json['last_push_at'] as String
     ..parent_id = json['parent_id'] as num
     ..fork = json['fork'] as bool
@@ -41,8 +41,7 @@ RepoFeature _$RepoFeatureFromJson(Map<String, dynamic> json) {
     ..parent_path_with_namespace = json['parent_path_with_namespace'] as String;
 }
 
-Map<String, dynamic> _$RepoFeatureToJson(RepoFeature instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$RepoV3ToJson(RepoV3 instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'default_branch': instance.default_branch,

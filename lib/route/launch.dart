@@ -11,12 +11,13 @@ class _LaunchState extends State<LaunchWidget> {
   @override
   void initState() {
     OAuth().prepare().then((oauth) {
-      new Future.delayed(new Duration(milliseconds: 300)).then((_) {
-        if ((oauth as OAuth).isAuthorized) {
-          Navigator.of(context).pushReplacementNamed("/router/home");
-        } else {
-          Navigator.of(context).pushReplacementNamed("/router/login");
-        }
+      Future.delayed(Duration(milliseconds: 100)).then((_) {
+        // if ((oauth as OAuth).isAuthorized) {
+        //   Navigator.of(context).pushReplacementNamed("/router/home");
+        // } else {
+        //   Navigator.of(context).pushReplacementNamed("/router/login");
+        // }
+        Navigator.of(context).pushReplacementNamed(page_home);
       });
     });
     super.initState();
@@ -27,7 +28,17 @@ class _LaunchState extends State<LaunchWidget> {
     return new Material(
       child: new Scaffold(
         body: new Container(
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
+          child: Center(
+            child: Text(
+              '码云 Gitee',
+              style: TextStyle(
+                color: Colors.grey[50],
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
+            ),
+          ),
         ),
       ),
     );

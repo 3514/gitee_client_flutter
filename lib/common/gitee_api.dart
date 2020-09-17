@@ -21,7 +21,7 @@ class _NettingPath {
   static final watchUsers = "api/v5/repos/{owner}/{repo}/subscribers";
 }
 
-///码云Api
+// 码云 Api -> https://gitee.com/api/v5/swagger#/getV5UsersUsernameReceivedEvents
 class GiteeApi {
   static final _ins = new GiteeApi._internal();
 
@@ -29,27 +29,27 @@ class GiteeApi {
 
   GiteeApi._internal();
 
-  // 在网络请求过程中可能会需要使用当前的context信息，比如在请求失败时
-  // 打开一个新路由，而打开新路由需要context信息。
-  // GiteeApi([this.context]) {
-  //   _options = Options(extra: {"context": context});
-  // }
-
-  BuildContext context;
-  Options _options;
+  Options _options = Options();
+  int _perPage = 20;
   static Dio dioV3 = Dio(BaseOptions(
     baseUrl: BASE_URL_V3,
   ));
   static Dio dioV5 = Dio(BaseOptions(
     baseUrl: BASE_URL_V5,
   ));
-  int perPage = 20;
+
+  // 在网络请求过程中可能会需要使用当前的context信息，比如在请求失败时
+  // 打开一个新路由，而打开新路由需要context信息。
+  // GiteeApi([this.context]) {
+  //   _options = Options(extra: {"context": context});
+  // }
+  //BuildContext context;
 
   static void init() {
     // 添加缓存插件
     dioV3.interceptors.add(Global.netCache);
     // 设置用户token（可能为null，代表未登录）
-    dioV3.options.headers[HttpHeaders.authorizationHeader] = Global.profile.token;
+    dioV3.options.headers[HttpHeaders.authorizationHeader] = Global.profile.oauth?.access_token;
 
     // 在调试模式下需要抓包调试，所以我们使用代理，并禁用HTTPS证书校验
     if (!Global.isRelease) {
@@ -67,7 +67,7 @@ class GiteeApi {
 
   // OAuth2 认证
   // https://gitee.com/oauth/token
-  Future<String> login(String account, String password) async {
+  login(String account, String password) async {
     final FormData formData = new FormData.fromMap({
       "grant_type": "password",
       "username": account,
@@ -85,13 +85,11 @@ class GiteeApi {
         "noCache": true, //本接口禁用缓存
       }),
     );
+    Global.netCache.cache.clear(); //清空所有缓存
+
     //登录成功后更新公共头（authorization），此后的所有请求都会带上用户身份信息
     //dio.options.headers[HttpHeaders.authorizationHeader] = basic;
-
-    Global.netCache.cache.clear(); //清空所有缓存
-    //更新profile中的token信息
-    //Global.profile.token = basic;
-    return response.data[ACCESS_TOKEN];
+    await OAuth().storeToken(response.data);
   }
 
   Future<Map<String, dynamic>> refreshToken(String refreshToken) async {
@@ -108,19 +106,21 @@ class GiteeApi {
   // 用户信息
   // https://gitee.com/api/v5/user?access_token=b62d8a8057c7394f34ad8e39f2061652
   Future<User> userInfo() async {
-    final Response response = await dioV5.get<User>(
+    final Response response = await dioV5.get(
       _NettingPath.user,
       queryParameters: {
-        ACCESS_TOKEN: OAuth().accessToken,
+        ACCESS_TOKEN: OAuth().token(),
       },
       options: _options,
     );
-    return response.data.map((e) => RepoFeature.fromJson(e)).toList();
+    //return response.data.map((e) => RepoV3.fromJson(e)).toList();
+    //return response.data; // dioV5.get<User>(
+    return User.fromJson(response.data);// dioV5.get(
   }
 
   // 获取项目列表 , 推荐项目,热门项目,最近项目
   // https://gitee.com/api/v3/projects/featured/?page=1
-  Future<List<RepoFeature>> getRepoList(
+  Future<List<RepoV3>> getRepoList(
       {TabTitleHome tab,
       Map<String, dynamic> queryParameters, //query参数，用于接收分页信息
       refresh = false}) async {
@@ -147,13 +147,13 @@ class GiteeApi {
       queryParameters: queryParameters,
       options: _options,
     );
-    return response.data.map((e) => RepoFeature.fromJson(e)).toList();
+    return response.data.map((e) => RepoV3.fromJson(e)).toList();
   }
 
   // 搜索仓库
   // https://gitee.com/api/v3/projects/search/jfinal?page=3
   @deprecated
-  Future<List<RepoFeature>> searchRepos({@required String keyWords, Map<String, dynamic> queryParameters}) async {
+  Future<List<RepoV3>> searchRepos({@required String keyWords, Map<String, dynamic> queryParameters}) async {
     ///dio.request
     // _options.method = "get";
     // var response = await dio.request(
@@ -167,7 +167,7 @@ class GiteeApi {
       queryParameters: queryParameters,
       options: _options,
     );
-    return response.data.map((e) => RepoFeature.fromJson(e)).toList();
+    return response.data.map((e) => RepoV3.fromJson(e)).toList();
   }
 
   Future repos(int page) async {
@@ -176,7 +176,12 @@ class GiteeApi {
     }
     Response response = await dioV5.get(
       _NettingPath.repos,
-      queryParameters: {"perPage": perPage, "page": page, "sort": "created", ACCESS_TOKEN: OAuth().accessToken},
+      queryParameters: {
+        "perPage": _perPage,
+        "page": page,
+        "sort": "created",
+        ACCESS_TOKEN: OAuth().token(),
+      },
     );
     return response.data;
   }
@@ -188,12 +193,12 @@ class GiteeApi {
     Response response = await dioV5.get(
       _NettingPath.issues,
       queryParameters: {
-        "perPage": perPage,
+        "perPage": _perPage,
         "page": page,
         "sort": "updated",
         "filter": "all",
         "state": "all",
-        ACCESS_TOKEN: OAuth().accessToken
+        ACCESS_TOKEN: OAuth().token(),
       },
     );
     return response.data;
@@ -205,7 +210,7 @@ class GiteeApi {
       queryParameters: {
         "{owner}": owner,
         "{repo}": repo,
-        ACCESS_TOKEN: OAuth().accessToken,
+        ACCESS_TOKEN: OAuth().token(),
       },
     );
     return response.data;
@@ -216,7 +221,7 @@ class GiteeApi {
       "{owner}": owner,
       "{repo}": repo,
       "{path}": path,
-      ACCESS_TOKEN: OAuth().accessToken,
+      ACCESS_TOKEN: OAuth().token(),
     };
     if (ref != null) {
       data["ref"] = ref;
@@ -227,7 +232,7 @@ class GiteeApi {
 
   Future updateProfile(Map<String, dynamic> data) async {
     Map<String, dynamic> _data = {
-      ACCESS_TOKEN: OAuth().accessToken,
+      ACCESS_TOKEN: OAuth().token(),
     };
     _data.addAll(data);
     Response response = await dioV5.patch(_NettingPath.user, queryParameters: _data);
@@ -238,7 +243,7 @@ class GiteeApi {
     var data = {
       "{owner}": owner,
       "{repo}": repo,
-      ACCESS_TOKEN: OAuth().accessToken,
+      ACCESS_TOKEN: OAuth().token(),
     };
     print(data);
     Response response = await dioV5.put(_NettingPath.star, queryParameters: data);
@@ -249,7 +254,7 @@ class GiteeApi {
     var data = {
       "{owner}": owner,
       "{repo}": repo,
-      ACCESS_TOKEN: OAuth().accessToken,
+      ACCESS_TOKEN: OAuth().token(),
     };
     print(data);
     Response response = await dioV5.delete(_NettingPath.star, queryParameters: data);
@@ -260,7 +265,7 @@ class GiteeApi {
     Map<String, dynamic> data = {
       "{owner}": owner,
       "{repo}": repo,
-      ACCESS_TOKEN: OAuth().accessToken,
+      ACCESS_TOKEN: OAuth().token(),
     };
     print(data);
     Response response = await dioV5.put(_NettingPath.watch, queryParameters: data);
@@ -271,7 +276,7 @@ class GiteeApi {
     var data = {
       "{owner}": owner,
       "{repo}": repo,
-      ACCESS_TOKEN: OAuth().accessToken,
+      ACCESS_TOKEN: OAuth().token(),
     };
     print(data);
     Response response = await dioV5.delete(_NettingPath.watch, queryParameters: data);
@@ -282,9 +287,9 @@ class GiteeApi {
     var data = {
       "{owner}": owner,
       "{repo}": repo,
-      "per_page": perPage,
+      "per_page": _perPage,
       "page": page,
-      ACCESS_TOKEN: OAuth().accessToken,
+      ACCESS_TOKEN: OAuth().token(),
     };
     Response response = await dioV5.get(_NettingPath.starUsers, queryParameters: data);
     return response.data;
@@ -294,9 +299,9 @@ class GiteeApi {
     var data = {
       "{owner}": owner,
       "{repo}": repo,
-      "per_page": perPage,
+      "per_page": _perPage,
       "page": page,
-      ACCESS_TOKEN: OAuth().accessToken,
+      ACCESS_TOKEN: OAuth().token(),
     };
     Response response = await dioV5.get(_NettingPath.watchUsers, queryParameters: data);
     return response.data;

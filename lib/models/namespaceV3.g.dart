@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'namespace.dart';
+part of 'namespaceV3.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Namespace _$NamespaceFromJson(Map<String, dynamic> json) {
-  return Namespace()
+NamespaceV3 _$NamespaceV3FromJson(Map<String, dynamic> json) {
+  return NamespaceV3()
     ..id = json['id'] as num
     ..name = json['name'] as String
     ..path = json['path'] as String
@@ -27,7 +27,8 @@ Namespace _$NamespaceFromJson(Map<String, dynamic> json) {
     ..avatar = json['avatar'] as String;
 }
 
-Map<String, dynamic> _$NamespaceToJson(Namespace instance) => <String, dynamic>{
+Map<String, dynamic> _$NamespaceV3ToJson(NamespaceV3 instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'path': instance.path,

@@ -86,13 +86,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "navGitee": "码云",
-  "@navGitee": {
+  "navHome": "首页",
+  "@navHome": {
     "type": "text",
     "placeholders": {}
   },
-  "navGitHub": "集线器",
-  "@navGitHub": {
+  "navDynamic": "动态",
+  "@navDynamic": {
     "type": "text",
     "placeholders": {}
   },

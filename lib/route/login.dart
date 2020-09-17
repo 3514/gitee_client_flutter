@@ -111,22 +111,19 @@ class _LoginRouteState extends State<LoginRoute> {
       showLoading(context);
       User user;
       try {
-        user = await GiteeApi().login(_nameController.text, _pwdController.text);
+        await GiteeApi().login(_nameController.text, _pwdController.text);
+        user = await GiteeApi().userInfo();
         // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新
         Provider.of<UserModel>(context, listen: false).user = user;
       } catch (e) {
+        print(e?.toString());
         //登录失败则提示
-        if (e.response?.statusCode == 401) {
-          showToast(GmLocalizations.of(context).userNameOrPasswordWrong);
-        } else {
-          showToast(e.toString());
-        }
+        showToast(e.toString());
       } finally {
         // 隐藏Loading框
         Navigator.of(context).pop();
       }
       if (user != null) {
-        // 返回
         Navigator.of(context).pop();
       }
     }

@@ -2,6 +2,7 @@ import '../../index.dart';
 
 class SearchPageRepos extends StatefulWidget {
   SearchPageRepos({@required this.searchWords});
+
   final String searchWords;
 
   @override
@@ -10,8 +11,7 @@ class SearchPageRepos extends StatefulWidget {
   }
 }
 
-class _SearchPageReposState extends State<SearchPageRepos>
-    with AutomaticKeepAliveClientMixin {
+class _SearchPageReposState extends State<SearchPageRepos> with AutomaticKeepAliveClientMixin {
   var curSearchWords;
 
   //搜索订阅事件
@@ -42,10 +42,10 @@ class _SearchPageReposState extends State<SearchPageRepos>
     return MediaQuery.removePadding(
       removeTop: true,
       context: context,
-      child: InfiniteListView<RepoFeature>(
+      child: InfiniteListView<RepoV3>(
         //refreshKey: refreshIndicatorKey,
-        onRetrieveData: (int page, List<RepoFeature> items, bool refresh) async {
-          var data = await GiteeApi(context).searchRepos(
+        onRetrieveData: (int page, List<RepoV3> items, bool refresh) async {
+          var data = await GiteeApi().searchRepos(
             keyWords: curSearchWords,
             queryParameters: {
               'page': page,

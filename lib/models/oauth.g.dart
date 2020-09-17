@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth.dart';
+part of 'oauth.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Auth _$AuthFromJson(Map<String, dynamic> json) {
-  return Auth()
+Oauth _$OauthFromJson(Map<String, dynamic> json) {
+  return Oauth()
     ..access_token = json['access_token'] as String
     ..token_type = json['token_type'] as String
     ..expires_in = json['expires_in'] as num
@@ -16,7 +16,7 @@ Auth _$AuthFromJson(Map<String, dynamic> json) {
     ..created_at = json['created_at'] as num;
 }
 
-Map<String, dynamic> _$AuthToJson(Auth instance) => <String, dynamic>{
+Map<String, dynamic> _$OauthToJson(Oauth instance) => <String, dynamic>{
       'access_token': instance.access_token,
       'token_type': instance.token_type,
       'expires_in': instance.expires_in,

@@ -22,8 +22,8 @@ class _HomeListWidgetState extends State<HomeListWidget> with AutomaticKeepAlive
 
   @override
   Widget build(BuildContext context) {
-    return InfiniteListView<RepoFeature>(
-      onRetrieveData: (int page, List<RepoFeature> items, bool refresh) async {
+    return InfiniteListView<RepoV3>(
+      onRetrieveData: (int page, List<RepoV3> items, bool refresh) async {
         var data = await GiteeApi().getRepoList(
           tab: widget.tab,
           refresh: refresh,
