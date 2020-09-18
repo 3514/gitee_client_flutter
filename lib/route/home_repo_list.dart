@@ -71,9 +71,23 @@ class _RepoListRouteState extends State<RepoListRoute> with SingleTickerProvider
             smallTextMarginRight: 12,
             smallTextMarginTop: 12,
             onPressed: () {
-              toastBottom("通知 todo");
+              navToPage2(context: context, page: NotificationsRoute());
             },
           ),
+          // ///通知列表
+          // FutureBuilder<List<Notifications>>(
+          //   future: GiteeApi().notificationsAll(true),
+          //   builder: (BuildContext context, AsyncSnapshot<List<Notifications>> snapshot) {
+          //     if (snapshot.connectionState == ConnectionState.done) {
+          //       print("通知列表: ${snapshot?.toString()}  ${snapshot?.data?.length}");
+          //       return Text(
+          //         // snapshot.data?.length ?? "",
+          //         "xxx",
+          //       );
+          //     }
+          //     return Container(width: 0, height: 0);
+          //   },
+          // ),
         ],
       ),
       body: _buildBody(), //主页面

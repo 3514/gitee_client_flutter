@@ -1,0 +1,26 @@
+{
+  "self": {
+    "href": "https://gitee.com/api/v5/repos/jfinal/jfinal/pulls/60"
+  },
+  "html": {
+    "href": "https://gitee.com/jfinal/jfinal/pulls/60"
+  },
+  "issue": {
+    "href": "https://gitee.com/api/v5/repos/jfinal/jfinal/issues/60"
+  },
+  "comments": {
+    "href": "https://gitee.com/api/v5/repos/jfinal/jfinal/issues/60/comments"
+  },
+  "review_comments": {
+    "href": "https://gitee.com/api/v5/repos/jfinal/jfinal/pulls/60/comments"
+  },
+  "review_comment": {
+    "href": "https://gitee.com/api/v5/repos/jfinal/jfinal/pulls/comments/60"
+  },
+  "commits": {
+    "href": "https://gitee.com/api/v5/repos/jfinal/jfinal/pulls/60/commits"
+  },
+  "statuses": {
+    "href": "https://gitee.com/api/v5/repos/jfinal/jfinal/89be22268f52f276c019368cb85815995dd9bb31"
+  }
+}

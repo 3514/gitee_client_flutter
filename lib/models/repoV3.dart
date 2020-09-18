@@ -35,7 +35,7 @@ class RepoV3 {
     String relation;
     num recomm;
     String parent_path_with_namespace;
-
+    
     factory RepoV3.fromJson(Map<String,dynamic> json) => _$RepoV3FromJson(json);
     Map<String, dynamic> toJson() => _$RepoV3ToJson(this);
 }

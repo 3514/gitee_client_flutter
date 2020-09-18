@@ -1,0 +1,14 @@
+{
+  "id": 94881816,
+  "content": "疯狂的逍遥 新建任务 #I1VPRD tinyint  值获取错误",
+  "type": "issue_new",
+  "unread": true,
+  "mute": false,
+  "updated_at": "2020-09-17T23:05:11+08:00",
+  "url": "https://gitee.com/api/v5/notification/threads/94881816",
+  "html_url": "https://gitee.com/jfinal/jfinal/issues/I1VPRD",
+  "actor": "$user",
+  "repository": "$repo",
+  "subject": "$subject",
+  "namespaces": "$[]namespace"
+}

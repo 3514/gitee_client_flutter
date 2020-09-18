@@ -7,3 +7,4 @@ export 'language_route.dart';
 export 'home_drawer.dart';
 export 'home_repo_list.dart';
 export 'search.dart';
+export 'notifications.dart';

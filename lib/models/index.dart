@@ -1,7 +1,14 @@
 export 'cacheConfig.dart' ; 
 export 'dynamicNews.dart' ; 
+export 'links.dart' ; 
+export 'namespace.dart' ; 
 export 'namespaceV3.dart' ; 
+export 'notifications.dart' ; 
+export 'notifyMessages.dart' ; 
 export 'oauth.dart' ; 
+export 'payload.dart' ; 
 export 'profile.dart' ; 
+export 'repo.dart' ; 
 export 'repoV3.dart' ; 
+export 'subject.dart' ; 
 export 'user.dart' ; 

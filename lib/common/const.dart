@@ -11,6 +11,9 @@ const CLIENT_SECRET = "0cff85e8decb0b93cd856952c85f41a1e8636040b7f4ffdea8788dbbe
 const fontAliPuHui = 'aliPuHui';
 const fontMaterialIcons = 'MaterialIcons'; //字体(内置)
 
+///颜色
+const colorNotifyTitle = Color(0xFF00415E);
+
 ///SharedPreference
 const PREFS_PROFILE = 'profile';
 const PREFS_SEARCH_HISTORY = 'search_history';

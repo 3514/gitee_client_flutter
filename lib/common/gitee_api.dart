@@ -13,7 +13,9 @@ class _NettingPath {
   static final user = "api/v5/user";
   static final repos = "api/v5/user/repos";
   static final issues = "api/v5/issues";
-  static final notifications = "api/v5/notifications/count";
+  static final notificationsCount = "api/v5/notifications/count";
+  static final notifications = "api/v5/notifications/threads";
+  static final notifyMessages = "api/v5/notifications/messages";
   static final readme = "api/v5/repos/{owner}/{repo}/readme";
   static final reposContents = "api/v5/repos/{owner}/{repo}/contents/{path}";
   static final star = "api/v5/user/starred/{owner}/{repo}";
@@ -94,9 +96,6 @@ class GiteeApi {
   }
 
   Future<Map<String, dynamic>> refreshToken(String refreshToken) async {
-    dioV5.options.validateStatus = (int status) {
-      return status >= 200 && status < 300 || status == 304;
-    };
     Response response = await dioV5.post(_NettingPath.refreshToken, data: {
       "grant_type": "refresh_token",
       "refresh_token": refreshToken,
@@ -123,7 +122,7 @@ class GiteeApi {
   Future<String> notificationCount(bool unread) async {
     if (!OAuth().isAuthorized) return null;
     Response response = await dioV5.get(
-      _NettingPath.notifications,
+      _NettingPath.notificationsCount,
       queryParameters: {
         //true 未读消息
         "unread": '${unread ?? true}',
@@ -133,8 +132,38 @@ class GiteeApi {
     return response.data['notification_count']?.toString();
   }
 
-  // 列出授权用户的所有通知 todo 2020-09-17 17:24:50
-  // https://gitee.com/api/v5/swagger#/getV5NotificationsThreads
+  // 列出授权用户的所有私信  https://gitee.com/api/v5/swagger#/getV5NotificationsMessages
+  // https://gitee.com/api/v5/notifications/messages
+  // ?access_token=c382c099d28aa30a569e4b722f579297&page=1&per_page=20&unread=false
+  Future<List<NotifyMessages>> messagesAll(bool unread, {Map<String, dynamic> queryParameters}) async {
+    if (!OAuth().isAuthorized) return null;
+
+    //unread=true 未读消息 , false 全部消息
+    queryParameters.addEntries({MapEntry("unread", unread)});
+    queryParameters.addEntries({MapEntry(ACCESS_TOKEN, OAuth().token())});
+    Response response = await dioV5.get(
+        _NettingPath.notifyMessages,
+        queryParameters:queryParameters
+    );
+    return (response.data['list'] as List).map((e) => NotifyMessages.fromJson(e)).toList();
+  }
+
+  // 列出授权用户的所有通知
+  // https://gitee.com/api/v5/notifications/threads
+  // ?access_token=533d2c9e8efa969583515b90af7a0664&type=all&page=1&per_page=20&unread=true
+  Future<List<Notifications>> notificationsAll(bool unread, {Map<String, dynamic> queryParameters}) async {
+    if (!OAuth().isAuthorized) return null;
+
+    //unread=true 未读消息 , false 全部消息
+    queryParameters.addEntries({MapEntry("unread", unread)});
+    queryParameters.addEntries({MapEntry("type", "all")});
+    queryParameters.addEntries({MapEntry(ACCESS_TOKEN, OAuth().token())});
+    Response response = await dioV5.get(
+      _NettingPath.notifications,
+      queryParameters:queryParameters
+    );
+    return (response.data['list'] as List).map((e) => Notifications.fromJson(e)).toList();
+  }
 
   // 获取项目列表 , 推荐项目,热门项目,最近项目
   // https://gitee.com/api/v3/projects/featured/?page=1

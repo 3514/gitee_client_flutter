@@ -25,9 +25,9 @@ class _HomeRouteState extends State<HomeRoute> {
   Widget build(BuildContext context) {
     var gm = GmLocalizations.of(context);
     navItemMap = {
-      gm.navHome: Icons.folder_special,
+      gm.navHome: Icons.home,
       gm.navDynamic: Icons.wb_sunny,
-      gm.navMe: Icons.account_circle,
+      gm.navMe: Icons.perm_identity,
     };
 
     // return RepoListRoute();
