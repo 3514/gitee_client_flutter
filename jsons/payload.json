@@ -42,6 +42,10 @@
     "user": "$user",
     "repo": "$repo"
   },
-  "_links": "$links",
-  "user": "$user"
+  "user": "$user",
+  "issue": "$issue",
+  "comment": "$comment",
+  "repository": "$repo",
+
+  "_links": "$links"
 }

@@ -53,3 +53,37 @@ extension TabTitleHomeExtension on TabTitleHome {
 
   String get title => _titles.elementAt(this.index);
 }
+
+//动态类型(可能是null) todo 2020年9月21日 类似Android ItemType 不同类型对应 不同样式的 ItemView
+enum DynamicType {
+  INSTANCE, //
+  UNKNOWN,
+  MemberEvent,
+  IssueEvent,
+  IssueCommentEvent,
+  PullRequestEvent,
+  PullRequestCommentEvent,
+  PushEvent,
+  ProjectCommentEvent,
+}
+
+extension DynamicTypeExtension on DynamicType {
+  String get name => describeEnum(this);
+
+  DynamicType getPrefix(String type) {
+    if (type == null || type.isEmpty) return DynamicType.UNKNOWN;
+    for(DynamicType e in DynamicType.values){
+      if (e.toString() == '${e.runtimeType}.$type') {
+        return e;
+      }
+    }
+    // DynamicType.values.forEach((e) {
+    //   //print("getPrefix ->  $type  ${e.toString()}  " + "${e.runtimeType}.$type");
+    //   if (e.toString() == '${e.runtimeType}.$type') {
+    //     print("equals -> ${e.toString() == '${e.runtimeType}.$type'}");
+    //     return e;
+    //   }
+    // });
+    return DynamicType.UNKNOWN;
+  }
+}

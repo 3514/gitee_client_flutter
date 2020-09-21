@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gitee_client_flutter/common/const.dart';
+import 'package:gitee_client_flutter/ui/web_view.dart';
 
 bool checkUrl(String url) => url != null && url.startsWith("http");
 
@@ -197,3 +198,9 @@ navToPage3({@required BuildContext context, @required Route page}) => Navigator.
       context,
       page,
     );
+
+navToWeb({@required BuildContext context, @required String url}) => navToPage3(
+    context: context,
+    page: MaterialPageRoute(
+      builder: (context) => WebViewRoute(url: url),
+    ));

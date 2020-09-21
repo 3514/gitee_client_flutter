@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gitee_client_flutter/common/oauth.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../index.dart';
 
 class _NettingPath {
@@ -13,6 +13,7 @@ class _NettingPath {
   static final user = "api/v5/user";
   static final repos = "api/v5/user/repos";
   static final issues = "api/v5/issues";
+  static final receivedEvents = "api/v5/users/{owner}/received_events";
   static final notificationsCount = "api/v5/notifications/count";
   static final notifications = "api/v5/notifications/threads";
   static final notifyMessages = "api/v5/notifications/messages";
@@ -34,12 +35,10 @@ class GiteeApi {
 
   Options _options = Options();
   int _perPage = 20;
-  static Dio dioV3 = Dio(BaseOptions(
-    baseUrl: BASE_URL_V3,
-  ));
-  static Dio dioV5 = Dio(BaseOptions(
-    baseUrl: BASE_URL_V5,
-  ));
+  static Dio dioV3 = Dio(_buildDioOpt(url: BASE_URL_V3));
+  static Dio dioV5 = Dio(_buildDioOpt(url: BASE_URL_V5));
+
+  static BaseOptions _buildDioOpt({String url}) => BaseOptions(baseUrl: url);
 
   // 在网络请求过程中可能会需要使用当前的context信息，比如在请求失败时
   // 打开一个新路由，而打开新路由需要context信息。
@@ -65,6 +64,20 @@ class GiteeApi {
         //代理工具会提供一个抓包的自签名证书，会通不过证书校验，所以我们禁用证书校验
         client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
       };
+    }
+  }
+
+  // 日志拦截器
+  void _setLoggerInterceptor(Dio dio) {
+    if (dio != null) {
+      dio.interceptors.add(PrettyDioLogger(
+          requestHeader: true,
+          requestBody: false,
+          responseBody: false,
+          responseHeader: true,
+          error: true,
+          compact: true,
+          maxWidth: 90));
     }
   }
 
@@ -117,6 +130,25 @@ class GiteeApi {
     return User.fromJson(response.data); // dioV5.get(
   }
 
+  // 动态
+  // https://gitee.com/api/v5/users/javakam/received_events
+  // ?access_token=0d3738a8c89d2be08927bf53bb8d3bff&page=1&per_page=2
+  Future<List<DynamicNews>> receivedEvents({Map<String, dynamic> queryParameters}) async {
+    if (!OAuth().isAuthorized) return null;
+    final Dio dioV5 = Dio(_buildDioOpt(url: BASE_URL_V5));
+    //_setLoggerInterceptor(dioV5);
+    queryParameters.addEntries({MapEntry(ACCESS_TOKEN, OAuth().token())});
+    Response<List> response = await dioV5
+        .get<List>(
+      _NettingPath.receivedEvents.replaceAll("{owner}", Global.profile.user.name ?? ""),
+      queryParameters: queryParameters,
+    )
+        .catchError((e) {
+      print("receivedEvents error -> $e");
+    });
+    return response.data.map((e) => DynamicNews.fromJson(e)).toList();
+  }
+
   // 获取授权用户的通知数 {"total_count":89,"notification_count":89,"message_count":0}
   // https://gitee.com/api/v5/notifications/count?access_token=b552c012800a541dac500b4f8fca1f11&unread=true
   Future<String> notificationCount(bool unread) async {
@@ -141,10 +173,7 @@ class GiteeApi {
     //unread=true 未读消息 , false 全部消息
     queryParameters.addEntries({MapEntry("unread", unread)});
     queryParameters.addEntries({MapEntry(ACCESS_TOKEN, OAuth().token())});
-    Response response = await dioV5.get(
-        _NettingPath.notifyMessages,
-        queryParameters:queryParameters
-    );
+    Response response = await dioV5.get(_NettingPath.notifyMessages, queryParameters: queryParameters);
     return (response.data['list'] as List).map((e) => NotifyMessages.fromJson(e)).toList();
   }
 
@@ -158,10 +187,7 @@ class GiteeApi {
     queryParameters.addEntries({MapEntry("unread", unread)});
     queryParameters.addEntries({MapEntry("type", "all")});
     queryParameters.addEntries({MapEntry(ACCESS_TOKEN, OAuth().token())});
-    Response response = await dioV5.get(
-      _NettingPath.notifications,
-      queryParameters:queryParameters
-    );
+    Response response = await dioV5.get(_NettingPath.notifications, queryParameters: queryParameters);
     return (response.data['list'] as List).map((e) => Notifications.fromJson(e)).toList();
   }
 

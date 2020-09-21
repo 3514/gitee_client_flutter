@@ -1,5 +1,7 @@
 export 'cacheConfig.dart' ; 
+export 'comment.dart' ; 
 export 'dynamicNews.dart' ; 
+export 'issue.dart' ; 
 export 'links.dart' ; 
 export 'namespace.dart' ; 
 export 'namespaceV3.dart' ; 

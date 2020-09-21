@@ -20,7 +20,7 @@ Payload _$PayloadFromJson(Map<String, dynamic> json) {
     ..review_comment_url = json['review_comment_url'] as String
     ..comments_url = json['comments_url'] as String
     ..statuses_url = json['statuses_url'] as String
-    ..number = json['number'] as num
+    ..number = (json['number'] as Object)?.toString()
     ..state = json['state'] as String
     ..title = json['title'] as String
     ..body = json['body'] as String
@@ -41,7 +41,16 @@ Payload _$PayloadFromJson(Map<String, dynamic> json) {
     ..base = json['base'] as Map<String, dynamic>
     ..user = json['user'] == null
         ? null
-        : User.fromJson(json['user'] as Map<String, dynamic>);
+        : User.fromJson(json['user'] as Map<String, dynamic>)
+    ..issue = json['issue'] == null
+        ? null
+        : Issue.fromJson(json['issue'] as Map<String, dynamic>)
+    ..comment = json['comment'] == null
+        ? null
+        : Comment.fromJson(json['comment'] as Map<String, dynamic>)
+    ..repository = json['repository'] == null
+        ? null
+        : Repo.fromJson(json['repository'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$PayloadToJson(Payload instance) => <String, dynamic>{
@@ -76,5 +85,8 @@ Map<String, dynamic> _$PayloadToJson(Payload instance) => <String, dynamic>{
       'can_merge_check': instance.can_merge_check,
       'head': instance.head,
       'base': instance.base,
-      'user': instance.user
+      'user': instance.user,
+      'issue': instance.issue,
+      'comment': instance.comment,
+      'repository': instance.repository
     };

@@ -17,7 +17,7 @@ class _HomeRouteState extends State<HomeRoute> {
     super.initState();
     _pageList = List();
     _pageList.add(RepoListRoute());
-    _pageList.add(LanguageRoute());
+    _pageList.add(DynamicNavRoute());
     _pageList.add(ThemeChangeRoute());
   }
 

@@ -21,9 +21,12 @@ json结构字段问题:
 @JsonKey(name: "fork?")
 bool fork;
 
-//payload.dart
+//payload.dart / payload.g.dart
 @JsonKey(name: "_links")
 Links links;
+// number 字段 为动态类型
+String number;
+..number = (json['number'] as Object)?.toString()
 ```
 
 ### 接口版本V3和V5

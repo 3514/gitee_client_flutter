@@ -1,6 +1,9 @@
 import 'package:gitee_client_flutter/models/links.dart';
 import 'package:json_annotation/json_annotation.dart';
 import "user.dart";
+import "issue.dart";
+import "comment.dart";
+import "repo.dart";
 part 'payload.g.dart';
 
 @JsonSerializable()
@@ -19,7 +22,7 @@ class Payload {
     String review_comment_url;
     String comments_url;
     String statuses_url;
-    num number;
+    String number;
     String state;
     String title;
     String body;
@@ -39,9 +42,13 @@ class Payload {
     Map<String,dynamic> head;
     Map<String,dynamic> base;
     User user;
+    Issue issue;
+    Comment comment;
+    Repo repository;
+
     @JsonKey(name: "_links")
     Links links;
-    
+
     factory Payload.fromJson(Map<String,dynamic> json) => _$PayloadFromJson(json);
     Map<String, dynamic> toJson() => _$PayloadToJson(this);
 }

@@ -23,7 +23,7 @@ class RepoV3 {
     NamespaceV3 namespace;
     String last_push_at;
     num parent_id;
-    @JsonKey(name: "fork?")
+    @JsonKey(name: 'fork?')
     bool fork;
     num forks_count;
     num stars_count;
