@@ -46,6 +46,8 @@
   "issue": "$issue",
   "comment": "$comment",
   "repository": "$repo",
+  "pull_request": "$pullRequest",
+  "commits": "$[]commit",
 
   "_links": "$links"
 }

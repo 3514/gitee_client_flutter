@@ -27,6 +27,10 @@ Links links;
 // number 字段 为动态类型
 String number;
 ..number = (json['number'] as Object)?.toString()
+
+//pullRequest.dart
+@JsonKey(name: "_links")
+Links links;
 ```
 
 ### 接口版本V3和V5

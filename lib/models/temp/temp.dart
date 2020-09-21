@@ -12,3 +12,7 @@
 /// repoV3.dart
 // @JsonKey(name: "fork?")
 // bool fork;
+
+/// pullRequest.dart
+// @JsonKey(name: "_links")
+// Links links;

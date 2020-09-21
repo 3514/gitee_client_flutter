@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'payload.dart';
+part of 'pullRequest.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Payload _$PayloadFromJson(Map<String, dynamic> json) {
-  return Payload()
-    ..action = json['action'] as String
+PullRequest _$PullRequestFromJson(Map<String, dynamic> json) {
+  return PullRequest()
     ..id = json['id'] as num
     ..url = json['url'] as String
     ..html_url = json['html_url'] as String
@@ -20,7 +19,7 @@ Payload _$PayloadFromJson(Map<String, dynamic> json) {
     ..review_comment_url = json['review_comment_url'] as String
     ..comments_url = json['comments_url'] as String
     ..statuses_url = json['statuses_url'] as String
-    ..number = (json['number'] as Object)?.toString()
+    ..number = json['number'] as num
     ..state = json['state'] as String
     ..title = json['title'] as String
     ..body = json['body'] as String
@@ -37,20 +36,19 @@ Payload _$PayloadFromJson(Map<String, dynamic> json) {
     ..merged_at = json['merged_at'] as String
     ..mergeable = json['mergeable'] as bool
     ..can_merge_check = json['can_merge_check'] as bool
-    ..head = json['head'] as Map<String, dynamic>
-    ..base = json['base'] as Map<String, dynamic>
-    ..user = json['user'] == null ? null : User.fromJson(json['user'] as Map<String, dynamic>)
-    ..issue = json['issue'] == null ? null : Issue.fromJson(json['issue'] as Map<String, dynamic>)
-    ..comment = json['comment'] == null ? null : Comment.fromJson(json['comment'] as Map<String, dynamic>)
-    ..repository = json['repository'] == null ? null : Repo.fromJson(json['repository'] as Map<String, dynamic>)
-    ..pull_request =
-        json['pull_request'] == null ? null : PullRequest.fromJson(json['pull_request'] as Map<String, dynamic>)
-    ..commits =
-        (json['commits'] as List)?.map((e) => e == null ? null : Commit.fromJson(e as Map<String, dynamic>))?.toList();
+    ..head = json['head'] == null
+        ? null
+        : Head.fromJson(json['head'] as Map<String, dynamic>)
+    ..base = json['base'] == null
+        ? null
+        : Base.fromJson(json['base'] as Map<String, dynamic>)
+    ..user = json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>);
 }
 
-Map<String, dynamic> _$PayloadToJson(Payload instance) => <String, dynamic>{
-      'action': instance.action,
+Map<String, dynamic> _$PullRequestToJson(PullRequest instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'url': instance.url,
       'html_url': instance.html_url,
@@ -81,10 +79,5 @@ Map<String, dynamic> _$PayloadToJson(Payload instance) => <String, dynamic>{
       'can_merge_check': instance.can_merge_check,
       'head': instance.head,
       'base': instance.base,
-      'user': instance.user,
-      'issue': instance.issue,
-      'comment': instance.comment,
-      'repository': instance.repository,
-      'pull_request': instance.pull_request,
-      'commits': instance.commits
+      'user': instance.user
     };

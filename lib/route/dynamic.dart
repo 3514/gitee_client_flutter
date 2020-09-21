@@ -79,7 +79,7 @@ class _RepoDynamicNewsItemWidgetState extends State<_DynamicNewsItemWidget> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+          padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -121,9 +121,16 @@ class _RepoDynamicNewsItemWidgetState extends State<_DynamicNewsItemWidget> {
     print("_buildSubTitle........ ${widget.news?.type}  $type");
     switch (type) {
       case DynamicType.MemberEvent:
+        return Text(
+          "${widget.news?.repo?.full_name}  ${widget.news?.repo?.human_name}",
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey,
+          ),
+        );
         break;
       case DynamicType.IssueEvent:
-      case DynamicType.IssueCommentEvent:
+      case DynamicType.PullRequestEvent:
         return Text(
           "#${widget.news?.payload?.number}  ${widget.news?.payload?.title ?? ""}",
           style: TextStyle(
@@ -131,10 +138,25 @@ class _RepoDynamicNewsItemWidgetState extends State<_DynamicNewsItemWidget> {
             color: Colors.grey,
           ),
         );
-      case DynamicType.PullRequestEvent:
+      case DynamicType.IssueCommentEvent:
+        break;
       case DynamicType.PullRequestCommentEvent:
+        return Text(
+          "${widget.news?.payload?.pull_request?.title}  ",
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey,
+          ),
+        );
         break;
       case DynamicType.PushEvent:
+        return Text(
+          "${widget.news?.payload?.commits[0]?.message}  ",
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey,
+          ),
+        );
         break;
       case DynamicType.ProjectCommentEvent:
         break;
@@ -142,7 +164,7 @@ class _RepoDynamicNewsItemWidgetState extends State<_DynamicNewsItemWidget> {
         break;
     }
     return Text(
-     "${ widget.news?.payload?.comment?.body ?? ""}  ${ widget.news?.payload?.comment?.created_at ?? ""}",
+      "${widget.news?.payload?.comment?.body ?? ""}  ${widget.news?.payload?.comment?.created_at ?? ""}",
       style: TextStyle(
         fontSize: 14,
         color: Colors.grey,

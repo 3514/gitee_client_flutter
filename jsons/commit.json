@@ -1,0 +1,6 @@
+{
+  "sha": "a53aeda8a63a7d9956782db869b52d1d81decec2",
+  "author":"$user",
+  "message": "List<M> find(Config, Connection, String, Object...) 可见性改为 protected",
+  "url": "https://gitee.com/api/v5/repos/jfinal/jfinal/commits/a53aeda8a63a7d9956782db869b52d1d81decec2"
+}

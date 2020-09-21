@@ -1,6 +1,9 @@
+export 'base.dart' ; 
 export 'cacheConfig.dart' ; 
 export 'comment.dart' ; 
+export 'commit.dart' ; 
 export 'dynamicNews.dart' ; 
+export 'head.dart' ; 
 export 'issue.dart' ; 
 export 'links.dart' ; 
 export 'namespace.dart' ; 
@@ -10,6 +13,7 @@ export 'notifyMessages.dart' ;
 export 'oauth.dart' ; 
 export 'payload.dart' ; 
 export 'profile.dart' ; 
+export 'pullRequest.dart' ; 
 export 'repo.dart' ; 
 export 'repoV3.dart' ; 
 export 'subject.dart' ; 
