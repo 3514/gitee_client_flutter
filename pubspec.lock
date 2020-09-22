@@ -270,6 +270,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.1.2+1"
   flutter_svg:
     dependency: transitive
     description:
@@ -539,6 +546,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.4"
+  photo_view:
+    dependency: "direct main"
+    description:
+      name: photo_view
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.10.2"
   platform:
     dependency: transitive
     description:
@@ -761,6 +775,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.1+2"
+  transparent_image:
+    dependency: "direct main"
+    description:
+      name: transparent_image
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   typed_data:
     dependency: transitive
     description:

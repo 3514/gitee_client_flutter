@@ -1,20 +1,60 @@
 # gitee_client_flutter
 
-## 参考
-
-**Flutter完整开发实战详解系列**🍎<https://wizardforcel.gitbooks.io/gsyflutterbook/content/Flutter-8.html>
+🚀**码云客户端**(Gitee Flutter Client)
+🚀**Flutter中文网** <https://book.flutterchina.club/><br>
+🚀**Flutter中文网 GitHub** <https://github.com/flutterchina><br>
+🚀**随书源码** <https://github.com/wendux/flutter_in_action_source_code><br>
+🚀**gsy_github_app_flutter** <https://github.com/CarGuo/gsy_github_app_flutter><br>
+🚀**FlutterGithub** <https://github.com/MrHGJ/FlutterGithub><br>
 
 ## 项目结构
 ```
-文件夹	作用
-common	一些工具类，如通用方法类、网络接口类、保存全局变量的静态类等
-l10n	国际化相关的类都在此目录下
-models	Json文件对应的Dart Model类会在此目录下
-states	保存APP中需要跨组件共享的状态类
-routes	存放所有路由页面类
-widgets	APP内封装的一些Widget组件都在该目录下
+├─common    常量,常用方法,网络及缓存,全局配置,oauth认证
+├─event     EventBus组件
+├─l10n      国际化
+├─models    Json文件对应的实体类
+├─route     所有路由页面
+├─states    保存APP中需要跨组件共享的状态类
+├─ui        自定义组件 
+└─util      工具类
+index.dart
+main.dart
 ```
-json结构字段问题:
+### 效果图
+
+
+
+## 国际化
+dart -> arb
+
+```
+flutter pub pub run intl_translation:extract_to_arb --output-dir=target/directory
+      my_program.dart mor;e_of_my_program.dart
+my: 
+flutter pub pub run intl_translation:extract_to_arb --output-dir=l10n-arb \ lib/l10n/localization_intl.dart
+```
+arb -> dart
+
+```
+flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/localization_intl.dart l10n-arb/intl_*.arb
+```
+
+根目录下创建一个intl.sh的脚本，内容为：
+```
+flutter pub pub run intl_translation:extract_to_arb --output-dir=l10n-arb lib/l10n/localization_intl.dart
+flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/localization_intl.dart l10n-arb/intl_*.arb
+```
+Linux: 然后授予执行权限： `chmod +x intl.sh` , 执行intl.sh： `./intl.sh` <br>
+
+Windows: Android Studio 中直接运行 `intl.sh`
+
+### 使用`json_model`构建`json_serializable`实体类
+
+🍎仅需一条指令 👉 `flutter packages pub run json_model`
+
+🍎网页版 👉 <https://caijinglong.github.io/json2dart/index_ch.html>
+
+- `json`结构字段问题:
 
 ```dart
 //repoV3.dart
@@ -33,8 +73,7 @@ String number;
 Links links;
 ```
 
-### 接口版本V3和V5
-api v5 头像`avatar_url` ; v3 头像`portrait_url`
+- 接口版本`V3`和`V5`:`api v5`头像`avatar_url`;`v3`头像`portrait_url`
 
 `User` -> `models/user.dart`
 ```dart
@@ -43,38 +82,7 @@ String avatar_url;        //
 String portrait_url;
 ```
 
-## 国际化
-dart -> arb
-```
-flutter pub pub run intl_translation:extract_to_arb --output-dir=target/directory
-      my_program.dart more_of_my_program.dart
-my: 
-flutter pub pub run intl_translation:extract_to_arb --output-dir=l10n-arb \ lib/l10n/localization_intl.dart
-```
-arb -> dart
-```
-flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/localization_intl.dart l10n-arb/intl_*.arb
-```
-
-根目录下创建一个intl.sh的脚本，内容为：
-```
-flutter pub pub run intl_translation:extract_to_arb --output-dir=l10n-arb lib/l10n/localization_intl.dart
-flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n --no-use-deferred-loading lib/l10n/localization_intl.dart l10n-arb/intl_*.arb
-```
-Linux: 然后授予执行权限： `chmod +x intl.sh` , 执行intl.sh： `./intl.sh` <br>
-
-Windows: `intl.sh`
-
-## 使用`json_model`构建`json_serializable`实体类
-
-🍎仅需一条指令 👉 `flutter packages pub run json_model`
-
-🍎网页版 👉 <https://caijinglong.github.io/json2dart/index_ch.html>
-
-## flukit
-<https://github.com/flutterchina/flukit>
-
-## enum 
+## 枚举 enum 
 <https://medium.com/flutter/enums-with-extensions-dart-460c42ea51f7>
 
 ```dart
@@ -105,7 +113,7 @@ List<String> _tabs = TabTitleHome.Recommend.titles;//_titles -> titles
 List<String> _tabs = TabTitleHome.values.map((e) => e.title).toList();//推荐
 ```
 
-## flukit
+## flukit 框架使用
 
 ```dart
 ///========================== flukit ==============================
@@ -137,7 +145,6 @@ List<String> _tabs = TabTitleHome.values.map((e) => e.title).toList();//推荐
 ///       child: Text("Submit"),
 ///       onPressed: onTap,
 ///     ),
-///
 
 ///========================== TurnBox ==============================
 ///
@@ -154,12 +161,8 @@ List<String> _tabs = TabTitleHome.values.map((e) => e.title).toList();//推荐
 ///   TurnBox(
 ///     turns: _turns,  // `1/8`  旋转的“圈”数,一圈为360度，如0.25圈即90度
 ///     duration: 500,  //过渡动画执行的总时长
-///     child: Icon(
-///       Icons.refresh,
-///       size: 50,
-///     ),
+///     child: Icon(Icons.refresh,size: 50),
 ///   ),
-///
 
 ///========================== GradientCircularProgressIndicator ==============================
 ///
@@ -188,21 +191,12 @@ SizedBox(
       TurnBox(
         turns: -0.25,
         child: GradientCircularProgressIndicator(
-            colors: [
-              Colors.red,
-              Colors.amber,
-              Colors.cyan,
-              Colors.green[200],
-              Colors.blue,
-              Colors.red
-            ],
+            colors: [Colors.red,Colors.blue,Colors.red],
             radius: 50.0,
             strokeWidth: 5.0,
             strokeCapRound: true,
             totalAngle: math.pi,
-            value: CurvedAnimation(
-                    parent: _animationController, curve: Curves.linear)
-                .value),
+            value: CurvedAnimation(parent: _animationController, curve: Curves.linear).value),
       ),
       Center(
         child: Text(
@@ -219,10 +213,10 @@ SizedBox(
 
 ## BUG
 
-
 ##### 1. `There are multiple heroes that share the same tag within a subtree.`
 
-Fixed:
+- Fixed:
+
 ```dart
 //首页底部导航测试时候,初始化了两个 RepoListRoute ,导致 tag 被注册了两次...￣□￣｜｜
 _pageList = List();
@@ -232,3 +226,22 @@ _pageList.add(RepoListRoute());//改用其他页面路由即可
 ```
 ##### 2. `Invalid argument(s): No host specified in URI xxx.png`
 `cached_network_image: ^2.3.2+1` -> `CachedNetworkImage` 
+
+- Fixed:
+
+```dart
+Widget getAvatarCircle(String url, {double radius = 30.0, BoxFit fit = BoxFit.cover,}) {
+  var placeholder = Image.asset(image_avatar_default,width: radius,height: radius);//默认头像
+  if (checkUrl(url)) {
+    return ClipOval(
+      child: CachedNetworkImage(
+        imageUrl: url,width: radius,height:radius,fit:fit,
+        placeholder: (context, url) => placeholder,
+        errorWidget: (context, url, error) => placeholder,
+      ),
+    );
+  } else {
+    return ClipOval(child: placeholder);
+  }
+}
+```

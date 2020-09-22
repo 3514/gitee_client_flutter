@@ -60,6 +60,6 @@
   "paas": null,
   "assignees_number": 0,
   "testers_number": 0,
-  "assignees": [],
-  "testers": []
+  "assignees":"$[]user",
+  "testers": "$[]user"
 }
