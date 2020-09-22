@@ -65,9 +65,9 @@ class Repo {
     String paas;
     num assignees_number;
     num testers_number;
-    List assignees;
-    List testers;
-    
+    List<User> assignees;
+    List<User> testers;
+
     factory Repo.fromJson(Map<String,dynamic> json) => _$RepoFromJson(json);
     Map<String, dynamic> toJson() => _$RepoToJson(this);
 }

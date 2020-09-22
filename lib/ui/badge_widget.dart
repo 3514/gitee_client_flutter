@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-///  BadgeWidget 两部分控件: 中间控件 + 右上角/其他位置的红点显示(注:红点数据支持异步加载)
+///  BadgeWidget 小红点控件
+///  由两部分控件组成: 中间控件 + 右上角/其他位置的红点显示(注:红点数据支持异步加载)
 ///
 /// BadgeWidget(
 ///   future: GiteeApi().notificationCount(true),

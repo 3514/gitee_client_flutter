@@ -11,7 +11,7 @@ class _NettingPath {
   static final login = "oauth/token";
   static final refreshToken = "oauth/token";
   static final user = "api/v5/user";
-  static final repos = "api/v5/user/repos";
+  static final repos = "api/v5/users/{owner}/repos";
   static final issues = "api/v5/issues";
   static final receivedEvents = "api/v5/users/{owner}/received_events";
   static final notificationsCount = "api/v5/notifications/count";
@@ -20,6 +20,7 @@ class _NettingPath {
   static final readme = "api/v5/repos/{owner}/{repo}/readme";
   static final reposContents = "api/v5/repos/{owner}/{repo}/contents/{path}";
   static final star = "api/v5/user/starred/{owner}/{repo}";
+  static final starList = "api/v5/user/starred";
   static final watch = "api/v5/user/subscriptions/{owner}/{repo}";
   static final starUsers = "api/v5/repos/{owner}/{repo}/stargazers";
   static final watchUsers = "api/v5/repos/{owner}/{repo}/subscribers";
@@ -191,9 +192,44 @@ class GiteeApi {
     return (response.data['list'] as List).map((e) => Notifications.fromJson(e)).toList();
   }
 
+  // 列出授权用户 star 了的仓库
+  // https://gitee.com/api/v5/user/starred?page=1&per_page=20&access_token=f79fa2e25a04a8a1fae131939d40d2dc&sort=created&direction=asc
+  Future<List<Repo>> getRepoStarList({int page}) async {
+    var response = await dioV5.get<List>(
+      _NettingPath.starList,
+      queryParameters: {
+        "perPage": _perPage,
+        "page": page ?? 1,
+        "direction": "asc",
+        ACCESS_TOKEN: OAuth().token(),
+      },
+    );
+    return response.data.map((e) => Repo.fromJson(e)).toList();
+  }
+
+  // 获取某个用户的公开仓库
+  // https://gitee.com/api/v5/users/javakam/repos
+  // ?access_token=f79fa2e25a04a8a1fae131939d40d2dc&type=all&sort=full_name&page=1&per_page=20
+  Future<List<Repo>> getRepoList(int page) async {
+    if (!OAuth().isAuthorized) return null;
+    var response = await dioV5.get<List>(
+      _NettingPath.repos.replaceAll("{owner}", Global.profile.user.name ?? ""),
+      queryParameters: {
+        "per_page": "20",
+        "page": page,
+        "type": "all",
+        "sort": "full_name",
+        ACCESS_TOKEN: OAuth().token(),
+      },
+    ).catchError((e) {
+      print("getRepoList error -> $e");
+    });
+    return response.data.map((e) => Repo.fromJson(e)).toList();
+  }
+
   // 获取项目列表 , 推荐项目,热门项目,最近项目
   // https://gitee.com/api/v3/projects/featured/?page=1
-  Future<List<RepoV3>> getRepoList(
+  Future<List<RepoV3>> getRepoListV3(
       {TabTitleHome tab,
       Map<String, dynamic> queryParameters, //query参数，用于接收分页信息
       refresh = false}) async {
@@ -226,27 +262,13 @@ class GiteeApi {
   // 搜索仓库
   // https://gitee.com/api/v3/projects/search/jfinal?page=3
   @deprecated
-  Future<List<RepoV3>> searchRepos({@required String keyWords, Map<String, dynamic> queryParameters}) async {
+  Future<List<RepoV3>> searchReposV3({@required String keyWords, Map<String, dynamic> queryParameters}) async {
     var response = await dioV3.get<List>(
       "projects/search/$keyWords",
       queryParameters: queryParameters,
       options: _options,
     );
     return response.data.map((e) => RepoV3.fromJson(e)).toList();
-  }
-
-  Future repos(int page) async {
-    if (!OAuth().isAuthorized) return null;
-    Response response = await dioV5.get(
-      _NettingPath.repos,
-      queryParameters: {
-        "perPage": _perPage,
-        "page": page,
-        "sort": "created",
-        ACCESS_TOKEN: OAuth().token(),
-      },
-    );
-    return response.data;
   }
 
   Future issues(int page) async {

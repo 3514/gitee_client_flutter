@@ -1,10 +1,6 @@
-import 'package:gitee_client_flutter/route/search/search_page_repos.dart';
-
 import '../index.dart';
 
 class SearchPageRoute extends StatefulWidget {
-  SearchPageRoute({Key key}) : super(key: key);
-
   @override
   _SearchPageRouteState createState() {
     return _SearchPageRouteState();
@@ -20,7 +16,6 @@ class _SearchPageRouteState extends State<SearchPageRoute>
   TextEditingController _editController = TextEditingController();
   List<String> historyData = new List<String>();
 
-  //
   var mTabs = <String>['仓库', "用户"];
 
   @override
@@ -356,14 +351,89 @@ class _SearchPageRouteState extends State<SearchPageRoute>
       return TabBarView(
         controller: tabController,
         children: <Widget>[
-          SearchPageRepos(
+          _SearchPageRepoList(
             searchWords: searchWords,
           ),
-          SearchPageRepos(
+          _SearchPageRepoList(
             searchWords: searchWords,
           )
         ],
       );
     }
+  }
+}
+
+class _SearchPageRepoList extends StatefulWidget {
+  _SearchPageRepoList({@required this.searchWords});
+
+  final String searchWords;
+
+  @override
+  State<StatefulWidget> createState() {
+    return _SearchPageRepoListState();
+  }
+}
+
+class _SearchPageRepoListState extends State<_SearchPageRepoList> with AutomaticKeepAliveClientMixin {
+  var curSearchWords;
+
+  //搜索订阅事件
+  var _searchChangeSubscription;
+
+  //这个key用来在不是手动下拉，而是点击某个button或其它操作时，代码直接触发下拉刷新
+  // final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+  //     new GlobalKey<RefreshIndicatorState>();
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+    curSearchWords = widget.searchWords;
+    //订阅搜索事件
+    _searchChangeSubscription = eventBus.on<SearchEvent>().listen((event) {
+      setState(() {
+        curSearchWords = event.searchWords;
+      });
+      //refreshIndicatorKey.currentState.show(); //更新文件列表
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MediaQuery.removePadding(
+      removeTop: true,
+      context: context,
+      child: InfiniteListView<RepoV3>(
+        //refreshKey: refreshIndicatorKey,
+        onRetrieveData: (int page, List<RepoV3> items, bool refresh) async {
+          var data = await GiteeApi().searchReposV3(
+            keyWords: curSearchWords,
+            queryParameters: {
+              'page': page,
+            },
+          );
+          //把请求到的新数据添加到items中
+          items.addAll(data);
+          // 如果接口返回的数量等于'page_size'，则认为还有数据，反之则认为最后一页
+          //return data.length == 30;
+          return data.length > 0 && data.length % 20 == 0;
+        },
+        emptyBuilder: (VoidCallback refresh, BuildContext context) {
+          return listNoDataView(refresh, context);
+        },
+        itemBuilder: (List list, int index, BuildContext ctx) {
+          // 项目信息列表项
+          return RepoListItemWidgetV3(list[index]);
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _searchChangeSubscription.cancel();
+    super.dispose();
   }
 }

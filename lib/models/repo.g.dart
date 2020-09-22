@@ -12,14 +12,10 @@ Repo _$RepoFromJson(Map<String, dynamic> json) {
     ..full_name = json['full_name'] as String
     ..human_name = json['human_name'] as String
     ..url = json['url'] as String
-    ..namespace = json['namespace'] == null
-        ? null
-        : Namespace.fromJson(json['namespace'] as Map<String, dynamic>)
+    ..namespace = json['namespace'] == null ? null : Namespace.fromJson(json['namespace'] as Map<String, dynamic>)
     ..path = json['path'] as String
     ..name = json['name'] as String
-    ..owner = json['owner'] == null
-        ? null
-        : User.fromJson(json['owner'] as Map<String, dynamic>)
+    ..owner = json['owner'] == null ? null : User.fromJson(json['owner'] as Map<String, dynamic>)
     ..description = json['description'] as String
     ..private = json['private'] as bool
     ..public = json['public'] as bool
@@ -70,8 +66,10 @@ Repo _$RepoFromJson(Map<String, dynamic> json) {
     ..paas = json['paas'] as String
     ..assignees_number = json['assignees_number'] as num
     ..testers_number = json['testers_number'] as num
-    ..assignees = json['assignees'] as List
-    ..testers = json['testers'] as List;
+    ..assignees =
+        (json['assignees'] as List)?.map((e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))?.toList()
+    ..testers =
+        (json['testers'] as List)?.map((e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))?.toList();
 }
 
 Map<String, dynamic> _$RepoToJson(Repo instance) => <String, dynamic>{

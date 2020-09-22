@@ -17,7 +17,7 @@ class _LaunchState extends State<LaunchWidget> {
         // } else {
         //   Navigator.of(context).pushReplacementNamed("/router/login");
         // }
-        Navigator.of(context).pushReplacementNamed(page_home);
+        Navigator.of(context).pushReplacementNamed(page_main);
       });
     });
     super.initState();

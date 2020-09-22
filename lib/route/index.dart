@@ -1,11 +1,10 @@
 export 'launch.dart';
 export 'login.dart';
 export 'dynamic.dart';
-export 'home_route.dart';
-export 'home_tab_viewpager.dart';
+export 'main_route.dart';
 export 'theme_route.dart';
 export 'language_route.dart';
-export 'home_drawer.dart';
-export 'home_repo_list.dart';
+export 'home_route.dart';
 export 'search.dart';
 export 'notifications.dart';
+export 'my_route.dart';

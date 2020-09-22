@@ -19,13 +19,13 @@ const PREFS_PROFILE = 'profile';
 const PREFS_SEARCH_HISTORY = 'search_history';
 
 ///UI Router
-const page_home = 'page_home';
+const page_main = 'page_main';
 const page_login = 'page_login';
 const page_theme = 'page_theme';
 const page_language = 'page_language';
 
 final routers = {
-  page_home: (context) => HomeRoute(),
+  page_main: (context) => MainRoute(),
   page_login: (context) => LoginRoute(),
   page_theme: (context) => ThemeChangeRoute(),
   page_language: (context) => LanguageRoute(),

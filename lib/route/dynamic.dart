@@ -1,44 +1,39 @@
-import 'package:flutter/material.dart';
 import '../index.dart';
 
 // 动态
 class DynamicNavRoute extends StatefulWidget {
   @override
-  _DynamicNavRouteState createState() {
-    return _DynamicNavRouteState();
-  }
+  _DynamicNavRouteState createState() => _DynamicNavRouteState();
 }
 
 class _DynamicNavRouteState extends State<DynamicNavRoute> {
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //   future: GiteeApi().receivedEvents(queryParameters: {
-    //     "page": 1, //page
-    //     "per_page": '20',
-    //   }),
-    //   builder: (BuildContext context, AsyncSnapshot<List<DynamicNews>> snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.done) {
-    //       print("result -> ${snapshot?.toString()}");
-    //       // return Text(
-    //       //   snapshot.data ?? "",
-    //       //   style: _numberTextStyle(),
-    //       // );
-    //     }
-    //     return Container(width: 0, height: 0);
-    //   },
-    // );
+    final UserModel userModel = Provider.of<UserModel>(context);
+    return Scaffold(appBar: AppBar(title: Text('动态')), body: _buildDynamicBody(userModel));
+  }
 
-    return Scaffold(
-      appBar: AppBar(title: Text('动态')),
-      body: InfiniteListView<DynamicNews>(
+  Widget _buildDynamicBody(UserModel userModel) {
+    // 用户未登录, 显示登录按钮
+    if (!userModel.isLogin) {
+      return Center(
+        child: RaisedButton(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+            child: Text(GmLocalizations.of(context).login),
+          ),
+          color: Theme.of(context).primaryColor,
+          highlightColor: Theme.of(context).primaryColorDark,
+          colorBrightness: Brightness.dark,
+          splashColor: Colors.grey,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          onPressed: () => navToPage(context, page_login),
+        ),
+      );
+    } else {
+      return InfiniteListView<DynamicNews>(
         onRetrieveData: (int page, List<DynamicNews> items, bool refresh) async {
-          var data = await GiteeApi().receivedEvents(
-            queryParameters: {
-              "page": page,
-              "per_page": '20',
-            },
-          );
+          var data = await GiteeApi().receivedEvents(queryParameters: {"page": page, "per_page": '20'});
           items.addAll(data);
           return data.length > 0 && data.length % 20 == 0;
         },
@@ -48,8 +43,8 @@ class _DynamicNavRouteState extends State<DynamicNavRoute> {
         itemBuilder: (List<DynamicNews> list, int index, BuildContext ctx) {
           return _DynamicNewsItemWidget(list[index]);
         },
-      ),
-    );
+      );
+    }
   }
 }
 
@@ -118,7 +113,7 @@ class _RepoDynamicNewsItemWidgetState extends State<_DynamicNewsItemWidget> {
 
   Widget _buildSubTitle() {
     DynamicType type = DynamicType.INSTANCE.getPrefix(widget.news?.type);
-    print("_buildSubTitle........ ${widget.news?.type}  $type");
+    //print("_buildSubTitle........ ${widget.news?.type}  $type");
     switch (type) {
       case DynamicType.MemberEvent:
         return Text(
