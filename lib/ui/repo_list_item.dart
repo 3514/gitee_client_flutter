@@ -56,7 +56,7 @@ class _RepoListItemWidgetV3State extends State<RepoListItemWidgetV3> {
                 //   style: TextStyle(color: Colors.deepOrange[700],fontSize: 11),
                 // ),
                 onTap: () {
-                  navToWeb(context: context,url:"$BASE_URL${widget.repo.path_with_namespace}" );
+                  navToWeb(context: context, url: "$BASE_URL${widget.repo.path_with_namespace}");
                 },
               ),
               Padding(
@@ -215,6 +215,9 @@ class _RepoItemWidgetState extends State<RepoListItemWidget> {
                     fontSize: 11,
                   ),
                 ),
+                onTap: () {
+                  navToWeb(context: context, url: widget?.repo?.namespace?.html_url ?? "");
+                },
               ),
             ],
           ),
