@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gitee_client_flutter/common/const.dart';
 
-//图标
+// 图标
 class MyIcons {
-  // gitee logo
-  static const IconData gitee = const IconData(0xe731, fontFamily: fontIconFontCN, matchTextDirection: true);
-
   // watch
   static const IconData watch = const IconData(0xe501, fontFamily: fontIconFontCN, matchTextDirection: true);
 

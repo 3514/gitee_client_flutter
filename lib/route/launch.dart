@@ -2,9 +2,7 @@ import '../index.dart';
 
 class LaunchWidget extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return _LaunchState();
-  }
+  State<StatefulWidget> createState() => _LaunchState();
 }
 
 class _LaunchState extends State<LaunchWidget> {

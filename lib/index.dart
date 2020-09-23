@@ -9,6 +9,7 @@ export 'package:flutter_html/flutter_html.dart';
 export 'package:flutter_html/html_parser.dart';
 export 'package:flutter_html/style.dart';
 export 'package:webview_flutter/webview_flutter.dart';
+export 'package:connectivity/connectivity.dart';
 
 ///
 export 'l10n/localization_intl.dart';

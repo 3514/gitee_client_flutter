@@ -62,7 +62,6 @@ class _NotificationsRouteState extends State<NotificationsRoute> with SingleTick
 ///通知列表
 class NotificationListWidget extends StatefulWidget {
   NotificationListWidget({Key key, this.type}) : super(key: key); //ValueKey("type${type.toString()}"
-
   final int type;
 
   @override
@@ -102,14 +101,11 @@ class _NotificationListWidgetState extends State<NotificationListWidget> with Au
             });
             break;
         }
-
         // 把请求到的新数据添加到items中
         items.addAll(data);
         return data.length > 0 && data.length % 20 == 0;
       },
-      emptyBuilder: (VoidCallback refresh, BuildContext context) {
-        return listNoDataView(refresh, context);
-      },
+      emptyBuilder: (VoidCallback refresh, BuildContext context) => listNoDataView(refresh, context),
       itemBuilder: (List list, int index, BuildContext ctx) {
         switch (widget.type) {
           case 0:
@@ -121,12 +117,7 @@ class _NotificationListWidgetState extends State<NotificationListWidget> with Au
         }
         return _NotificationItemWidget(list[index]);
       },
-      separatorBuilder: (List list, int index, BuildContext ctx) {
-        return Container(
-          color: Colors.grey[100],
-          height: 5.0,
-        );
-      },
+      separatorBuilder: (List list, int index, BuildContext ctx) => Container(color: Colors.grey[100], height: 5.0),
     );
   }
 }
@@ -137,9 +128,7 @@ class _MessageItemWidget extends StatefulWidget {
   final NotifyMessages message;
 
   @override
-  _MessageItemWidgetState createState() {
-    return _MessageItemWidgetState();
-  }
+  _MessageItemWidgetState createState() => _MessageItemWidgetState();
 }
 
 class _MessageItemWidgetState extends State<_MessageItemWidget> {
@@ -149,7 +138,7 @@ class _MessageItemWidgetState extends State<_MessageItemWidget> {
       onTap: () {
         //todo 2020年9月21日 https://gitee.com/notifications/messages/1 被重定向到 http://gitee.com/login
         //navToWeb(context: context, url:widget.message?.html_url?? "");
-        navToWeb(context: context, url:widget.message?.html_url?? "");
+        navToWeb(context: context, url: widget.message?.html_url ?? "");
       },
       child: Padding(
         padding: EdgeInsets.all(15.0),
@@ -294,41 +283,41 @@ class _NotificationItemWidgetState extends State<_NotificationItemWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        navToWeb(context: context, url:widget.notification?.html_url?? "");
-      },
+        onTap: () {
+          navToWeb(context: context, url: widget.notification?.html_url ?? "");
+        },
         child: Padding(
-      padding: EdgeInsets.all(15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "${widget.notification?.content ?? ""}",
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 15, color: colorNotifyTitle),
-          ),
-          SizedBox(height: 10.0),
-          Row(
+          padding: EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "${widget.notification?.updated_at ?? ""}",
-                maxLines: 1,
-                overflow: TextOverflow.clip,
-                style: TextStyle(fontSize: 12, color: Colors.grey),
-              ),
-              SizedBox(width: 15.0),
-              Text(
-                "${widget.notification?.repository?.full_name ?? ""}",
-                maxLines: 1,
+                "${widget.notification?.content ?? ""}",
+                maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14, color: Colors.grey),
+                style: TextStyle(fontSize: 15, color: colorNotifyTitle),
               ),
+              SizedBox(height: 10.0),
+              Row(
+                children: [
+                  Text(
+                    "${widget.notification?.updated_at ?? ""}",
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                  SizedBox(width: 15.0),
+                  Text(
+                    "${widget.notification?.repository?.full_name ?? ""}",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
-      ),
-    ));
+          ),
+        ));
   }
 }
 

@@ -36,14 +36,13 @@ class BadgeWidget<T> extends StatefulWidget {
   final TextStyle smallTextStyle;
   final Color smallTextBgColor;
   final EdgeInsetsGeometry smallTextPadding;
+  bool showNumber = false;
 
   //红点距离边界位置,默认右上角
   final double smallTextMarginLeft, smallTextMarginTop, smallTextMarginRight, smallTextMarginBottom;
 
   @override
-  _BadgeWidgetState createState() {
-    return _BadgeWidgetState();
-  }
+  _BadgeWidgetState createState() => _BadgeWidgetState();
 }
 
 class _BadgeWidgetState extends State<BadgeWidget> {
@@ -54,6 +53,11 @@ class _BadgeWidgetState extends State<BadgeWidget> {
     if (widget.centerWidget == null && widget.centerIconData == null) {
       throw ('centerWidget,centerIconData至少设置了一个');
     }
+  }
+  @override
+  void didUpdateWidget(BadgeWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    widget.showNumber = (widget.future != null);
   }
 
   @override
@@ -69,33 +73,37 @@ class _BadgeWidgetState extends State<BadgeWidget> {
                 onPressed: widget.onPressed,
               ),
         ),
-        Positioned(
-          left: widget.smallTextMarginLeft,
-          top: widget.smallTextMarginTop,
-          right: widget.smallTextMarginRight,
-          bottom: widget.smallTextMarginBottom,
-          child: ClipOval(
-            child: Container(
-                color: widget.smallTextBgColor ?? Colors.red,
-                child: Center(
-                  child: Padding(
-                    padding: widget.smallTextPadding ?? EdgeInsets.all(2.2),
-                    child: _buildNumber(),
-                  ),
-                )),
-          ),
-
-          //smallTextNum
-        ),
+        _buildPositionedNumber(),
       ],
     );
   }
 
+  Widget _buildPositionedNumber() {
+    if (!widget.showNumber) return Container(width: 0, height: 0);
+    return Positioned(
+      left: widget.smallTextMarginLeft,
+      top: widget.smallTextMarginTop,
+      right: widget.smallTextMarginRight,
+      bottom: widget.smallTextMarginBottom,
+      child: ClipOval(
+        child: Container(
+            color: widget.showNumber ? widget.smallTextBgColor ?? Colors.red : Colors.transparent,
+            child: Center(
+              child: Padding(
+                padding: widget.smallTextPadding ?? EdgeInsets.all(2.2),
+                child: _buildNumber(),
+              ),
+            )),
+      ),
+      //smallTextNum
+    );
+  }
+
   Widget _buildNumber() {
-    final bool isAsync = (widget.future != null) ?? false;
+    final bool isAsync = (widget?.future != null) ?? false;
     if (isAsync) {
       return FutureBuilder<String>(
-        future: widget.future,
+        future: widget?.future,
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Text(
@@ -108,7 +116,7 @@ class _BadgeWidgetState extends State<BadgeWidget> {
       );
     } else {
       return Text(
-        widget?.smallText?.toString() ?? "",
+        widget.showNumber ? widget?.smallText?.toString() ?? "" : "",
         style: _numberTextStyle(),
       );
     }

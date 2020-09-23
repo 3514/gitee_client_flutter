@@ -61,20 +61,31 @@ class _HomeRouteState extends State<HomeRoute> with SingleTickerProviderStateMix
                 );
               }),
           //通知红点
-          BadgeWidget(
-            future: GiteeApi().notificationCount(true),
-            centerIconData: Icons.notifications_none,
-            smallTextBgColor: Colors.red,
-            smallTextMarginRight: 12,
-            smallTextMarginTop: 12,
-            onPressed: () {
-              navToPage2(context: context, page: NotificationsRoute());
-            },
-          ),
+          _buildBadgeWidget(),
         ],
       ),
       body: _buildBody(), //主页面
       drawer: _HomeDrawer(), //抽屉菜单
+    );
+  }
+
+  //通知红点
+  Widget _buildBadgeWidget() {
+    final UserModel userModel = Provider.of<UserModel>(context, listen: false);
+    //print("_buildBadgeWidget ${userModel.isLogin}");
+    return BadgeWidget(
+      future: userModel.isLogin ? GiteeApi().notificationCount(true) : null,
+      centerIconData: Icons.notifications_none,
+      smallTextBgColor: Colors.red,
+      smallTextMarginRight: 12,
+      smallTextMarginTop: 12,
+      onPressed: () {
+        if (userModel.isLogin) {
+          navToPage2(context: context, page: NotificationsRoute());
+        } else {
+          navToPage(context, page_login);
+        }
+      },
     );
   }
 
@@ -257,4 +268,3 @@ class _HomeListWidgetState extends State<_HomeListWidget> with AutomaticKeepAliv
     );
   }
 }
-

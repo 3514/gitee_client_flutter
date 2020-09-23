@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import '../index.dart';
 
 //主页
@@ -11,6 +13,7 @@ class _MainRouteState extends State<MainRoute> {
   Map<String, IconData> navItemMap;
   int _selectedIndex = 0; //底部导航索引位置
   DateTime _lastPressedAt; //上次点击时间
+  // StreamSubscription subscription;
 
   @override
   void initState() {
@@ -19,6 +22,19 @@ class _MainRouteState extends State<MainRoute> {
     _pageList.add(HomeRoute());
     _pageList.add(DynamicRoute());
     _pageList.add(MyRoute());
+    // subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    //   if (result == ConnectivityResult.mobile) {
+    //     toastBottom("当前正在使用移动网络");
+    //   } else if (result == ConnectivityResult.wifi) {
+    //     toastBottom("当前正在使用Wifi");
+    //   }
+    // });
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    // subscription?.cancel();
   }
 
   @override
@@ -29,7 +45,6 @@ class _MainRouteState extends State<MainRoute> {
       gm.navDynamic: Icons.wb_sunny,
       gm.navMe: Icons.perm_identity,
     };
-
     // return RepoListRoute();
 
     //todo 暂时不要底部导航...
@@ -81,14 +96,14 @@ class _MainRouteState extends State<MainRoute> {
     );
   }
 
-  ///底部导航切换监听
+  //底部导航切换监听
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  ///悬浮按钮事件
+  //悬浮按钮事件
   void _onAdd() {}
 
   Widget _buildBottomNavigationBar() {
@@ -96,15 +111,7 @@ class _MainRouteState extends State<MainRoute> {
       elevation: 0.0,
       type: BottomNavigationBarType.fixed,
       items: navItemMap.entries
-          .map((e) => BottomNavigationBarItem(
-                icon: Icon(e.value),
-                title: Text(
-                  e.key,
-                  style: TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-              ))
+          .map((e) => BottomNavigationBarItem(icon: Icon(e.value), title: Text(e.key, style: TextStyle(fontSize: 12))))
           .toList(),
       currentIndex: _selectedIndex,
       onTap: _onItemTapped,

@@ -25,27 +25,26 @@ class _WebViewRouteState extends State<WebViewRoute> {
           widget.title ?? "",
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: 13,
-          ),
+          style: TextStyle(fontSize: 13),
         ),
       ),
       body: Builder(builder: (BuildContext context) {
+        //todo 2020年9月23日 注销重登后会有黑屏现象
         return WebView(
-          initialUrl: widget.url ?? "",
+          initialUrl: widget?.url ?? "",
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);
           },
           onWebResourceError: (WebResourceError error) {
             _controller.completeError(error);
+            print('Page onWebResourceError: ${error?.description}');
           },
           onPageStarted: (String url) {
             print('Page started loading: $url');
           },
           onPageFinished: (String url) {
             print('Page finished loading: $url');
-
             //更新标题
             setState(() {
               _controller.future.then((c) => c.getTitle().then((value) => widget.title = value));

@@ -6,35 +6,28 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "1280133",
+      "icon_id": "64369110",
       "name": "tag",
       "font_class": "tag",
       "unicode": "e620",
       "unicode_decimal": 58912
     },
     {
-      "icon_id": "3211921",
+      "icon_id": "64369111",
       "name": "eye",
       "font_class": "eye",
-      "unicode": "e501",
-      "unicode_decimal": 58625
+      "unicode": "e600",
+      "unicode_decimal": 58880
     },
     {
-      "icon_id": "6658877",
+      "icon_id": "64369112",
       "name": "star",
       "font_class": "star",
       "unicode": "e6a2",
       "unicode_decimal": 59042
     },
     {
-      "icon_id": "7318532",
-      "name": "gitee",
-      "font_class": "logo-black",
-      "unicode": "e731",
-      "unicode_decimal": 59185
-    },
-    {
-      "icon_id": "16036237",
+      "icon_id": "64369114",
       "name": "git-branch-line",
       "font_class": "git-branch-line",
       "unicode": "e782",

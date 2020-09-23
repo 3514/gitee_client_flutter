@@ -1,15 +1,9 @@
-import 'package:gitee_client_flutter/common/gitee_api.dart';
-
 import '../index.dart';
 
 ///登录
 class LoginRoute extends StatefulWidget {
-  LoginRoute({Key key}) : super(key: key);
-
   @override
-  _LoginRouteState createState() {
-    return _LoginRouteState();
-  }
+  _LoginRouteState createState() => _LoginRouteState();
 }
 
 class _LoginRouteState extends State<LoginRoute> {
@@ -111,6 +105,13 @@ class _LoginRouteState extends State<LoginRoute> {
       showLoading(context);
       User user;
       try {
+        //todo 2020年9月23日 17:08:10
+        // var connectivityResult = await (Connectivity().checkConnectivity());
+        // if (connectivityResult == ConnectivityResult.none) {
+        //   showToast("请检查网络连接");
+        //   return;
+        // }
+
         await GiteeApi().login(_nameController.text, _pwdController.text);
         user = await GiteeApi().userInfo();
         // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新

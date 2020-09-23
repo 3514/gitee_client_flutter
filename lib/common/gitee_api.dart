@@ -37,7 +37,7 @@ class GiteeApi {
   Options _options = Options();
   int _perPage = 20;
   static Dio dioV3 = Dio(_buildDioOpt(url: BASE_URL_V3));
-  static Dio dioV5 = Dio(_buildDioOpt(url: BASE_URL_V5));
+  static Dio dioV5 = Dio(_buildDioOpt(url: BASE_URL));
 
   static BaseOptions _buildDioOpt({String url}) => BaseOptions(baseUrl: url);
 
@@ -136,7 +136,7 @@ class GiteeApi {
   // ?access_token=0d3738a8c89d2be08927bf53bb8d3bff&page=1&per_page=2
   Future<List<DynamicNews>> receivedEvents({Map<String, dynamic> queryParameters}) async {
     if (!OAuth().isAuthorized) return null;
-    final Dio dioV5 = Dio(_buildDioOpt(url: BASE_URL_V5));
+    final Dio dioV5 = Dio(_buildDioOpt(url: BASE_URL));
     //_setLoggerInterceptor(dioV5);
     queryParameters.addEntries({MapEntry(ACCESS_TOKEN, OAuth().token())});
     Response<List> response = await dioV5

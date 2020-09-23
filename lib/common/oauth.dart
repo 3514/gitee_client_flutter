@@ -52,6 +52,15 @@ class OAuth {
     print("storeToken completed -->-->--> ${_oauth?.toString()} \n");
   }
 
+  Future<void> resetToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("expires_in", 0);
+    prefs.setString("access_token", "");
+    prefs.setString("refresh_token", "");
+    prefs.setString("scope", "");
+    prefs.setInt("created_at", 0);
+  }
+
   ///是否已经登录
   /// *仅判断本地是否已经存有user*
   bool get isAuthorized {
@@ -88,7 +97,9 @@ class OAuth {
   }
 
   void logout() {
+    resetToken();
     _createdAt = null;
+    Global.profile.user = null;
     Global.profile.oauth = null;
   }
 }
