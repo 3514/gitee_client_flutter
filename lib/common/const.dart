@@ -14,6 +14,22 @@ const fontMaterialIcons = 'MaterialIcons'; //字体(内置)
 ///颜色
 const colorNotifyTitle = Color(0xFF00415E);
 
+///图标 Unicode
+const sem_watch = "\u{f06e}";
+// const sem_watch = "\u{1f605}";
+const sem_empty_watch = "\uf070";
+const sem_star = "\u{f005}";
+const sem_empty_star = "\uf006";
+const sem_fork = "\u{f126}";
+const sem_tag = "\u{f02b}";
+const sem_lock = "\uf023";
+const sem_user = "\uf007";
+const sem_wait = "\uf017";
+const sem_loading = "\uf110";
+const sem_folder = "\uf07b";
+const sem_file_text = "\uf0f6";
+const sem_download_disk = "\uf019";
+
 ///SharedPreference
 const PREFS_PROFILE = 'profile';
 const PREFS_SEARCH_HISTORY = 'search_history';
@@ -72,7 +88,7 @@ extension DynamicTypeExtension on DynamicType {
 
   DynamicType getPrefix(String type) {
     if (type == null || type.isEmpty) return DynamicType.UNKNOWN;
-    for(DynamicType e in DynamicType.values){
+    for (DynamicType e in DynamicType.values) {
       if (e.toString() == '${e.runtimeType}.$type') {
         return e;
       }

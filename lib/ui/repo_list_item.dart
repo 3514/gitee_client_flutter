@@ -50,12 +50,38 @@ class _RepoListItemWidgetV3State extends State<RepoListItemWidgetV3> {
                     color: Colors.grey,
                   ),
                 ),
-                trailing: Text(
-                  widget.repo.language ?? "",
-                  style: TextStyle(
-                    color: Colors.deepOrange[700],
-                    fontSize: 11,
-                  ),
+                // trailing: Text(
+                //   widget.repo.language ?? "",
+                //   style: TextStyle(
+                //     color: Colors.deepOrange[700],
+                //     fontSize: 11,
+                //   ),
+                // ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(72, 5, 5, 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    //Text( "aaa${sem_fork}bbb \u{1f605} cccc \u{f06e} ddd \u{f005} eee \u{2665} fff"),
+
+                    RichText(text: TextSpan(
+                      children: [
+                        WidgetSpan(child: Icon(Icons.remove_red_eye,color: Colors.grey,size: 15,)),
+                        WidgetSpan(child:  Text("${widget.repo?.watches_count?.toString()}    ", style: TextStyle(fontSize: 12, color: Colors.grey))),
+
+                        WidgetSpan(child: Icon(Icons.star,color: Colors.grey,size: 15,)),
+                        WidgetSpan(child:  Text("${widget.repo?.stars_count?.toString()}    ", style: TextStyle(fontSize: 12, color: Colors.grey))),
+
+                        WidgetSpan(child: Icon(Icons.call_split,color: Colors.grey,size: 15,)),
+                        WidgetSpan(child:  Text("${widget.repo?.forks_count?.toString()}    ", style: TextStyle(fontSize: 12, color: Colors.grey))),
+
+                        WidgetSpan(child: Icon(Icons.label,color: Colors.grey,size: 15,)),
+                        WidgetSpan(child:  Text("${widget.repo?.language?.toString()}", style: TextStyle(fontSize: 12, color: Colors.grey))),
+                      ]
+                    ),),
+                  ],
                 ),
               ),
             ],
