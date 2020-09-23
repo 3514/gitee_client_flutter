@@ -1,12 +1,12 @@
 import '../index.dart';
 
 // 动态
-class DynamicNavRoute extends StatefulWidget {
+class DynamicRoute extends StatefulWidget {
   @override
-  _DynamicNavRouteState createState() => _DynamicNavRouteState();
+  _DynamicRouteState createState() => _DynamicRouteState();
 }
 
-class _DynamicNavRouteState extends State<DynamicNavRoute> {
+class _DynamicRouteState extends State<DynamicRoute> {
   @override
   Widget build(BuildContext context) {
     final UserModel userModel = Provider.of<UserModel>(context);

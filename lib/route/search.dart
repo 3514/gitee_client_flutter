@@ -40,7 +40,7 @@ class _SearchPageRouteState extends State<SearchPageRoute>
 
   @override
   Widget build(BuildContext context) {
-    backColor = getThemeColor(context);
+    backColor = getThemePrimaryColor(context);
 
     return Scaffold(
       body: NestedScrollView(
@@ -122,11 +122,7 @@ class _SearchPageRouteState extends State<SearchPageRoute>
                       indicatorColor: backColor,
                       indicatorSize: TabBarIndicatorSize.label,
                       controller: tabController,
-                      tabs: mTabs
-                          .map((String label) => Tab(
-                                text: label,
-                              ))
-                          .toList(),
+                      tabs: mTabs.map((String label) => Tab(text: label)).toList(),
                     )),
               ),
             ),

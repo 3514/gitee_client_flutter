@@ -1,14 +1,13 @@
 import 'dart:ui';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:transparent_image/transparent_image.dart';
 import '../index.dart';
 
-class PersonDetailPage extends StatefulWidget {
+class MyRoute extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _PersonDetailState();
 }
 
-class _PersonDetailState extends State<PersonDetailPage>
+class _PersonDetailState extends State<MyRoute>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   TabController _tabController;
   var statusBarHeight = MediaQueryData.fromWindow(window).padding.top;
@@ -21,7 +20,6 @@ class _PersonDetailState extends State<PersonDetailPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    // _futureBuilderFuture = _getPersonDetailData();
   }
 
   @override

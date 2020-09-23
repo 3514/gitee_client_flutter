@@ -17,8 +17,8 @@ class _MainRouteState extends State<MainRoute> {
     super.initState();
     _pageList = List();
     _pageList.add(HomeRoute());
-    _pageList.add(DynamicNavRoute());
-    _pageList.add(PersonDetailPage());
+    _pageList.add(DynamicRoute());
+    _pageList.add(MyRoute());
   }
 
   @override

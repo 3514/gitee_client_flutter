@@ -124,7 +124,7 @@ void showLoading(context, [String text]) {
 }
 
 //获取当前主题色
-Color getThemeColor(BuildContext context) => Theme.of(context).primaryColor;
+Color getThemePrimaryColor(BuildContext context) => Theme.of(context).primaryColor;
 //获取状态栏高度
 double getStatusBarHeight() => MediaQueryData.fromWindow(window).padding.top;
 //获取屏幕宽

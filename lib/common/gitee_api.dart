@@ -198,8 +198,8 @@ class GiteeApi {
     var response = await dioV5.get<List>(
       _NettingPath.starList,
       queryParameters: {
-        "perPage": _perPage,
-        "page": page ?? 1,
+        "perPage": 20,
+        "page": page,
         "direction": "asc",
         ACCESS_TOKEN: OAuth().token(),
       },

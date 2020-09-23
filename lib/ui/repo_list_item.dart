@@ -41,7 +41,7 @@ class _RepoListItemWidgetV3State extends State<RepoListItemWidgetV3> {
                   textScaleFactor: .9,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 15,
                   ),
                 ),
                 subtitle: Text(
@@ -81,19 +81,27 @@ class _RepoListWidgetState extends State<RepoListWidget> with AutomaticKeepAlive
 
   @override
   Widget build(BuildContext context) {
-    return InfiniteListView<Repo>(
-      onRetrieveData: (int page, List<Repo> items, bool refresh) async {
-        var data;
-        if (widget.tab == 0) {
-          data = await GiteeApi().getRepoList(page);
-        } else if (widget.tab == 1) {
-          data = await GiteeApi().getRepoStarList(page: page);
-        }
-        items.addAll(data); // 把请求到的新数据添加到items中
-        return data.length > 0 && data.length % 20 == 0;
-      },
-      emptyBuilder: (VoidCallback refresh, BuildContext context) => listNoDataView(refresh, context),
-      itemBuilder: (List<Repo> list, int index, BuildContext ctx) => RepoListItemWidget(list[index]), // 项目信息列表项
+    return MediaQuery.removePadding(
+      removeTop: true,
+      context: context,
+      child: InfiniteListView<Repo>(
+        pageSize: 20,
+        onRetrieveData: (int page, List<Repo> items, bool refresh) async {
+          var data;
+          if (widget.tab == 0) {
+            data = await GiteeApi().getRepoList(page);
+          } else if (widget.tab == 1) {
+            data = await GiteeApi().getRepoStarList(page: page);
+          }
+          items.addAll(data); // 把请求到的新数据添加到items中
+          return data.length > 0 && data.length % 20 == 0;
+        },
+        emptyBuilder: (VoidCallback refresh, BuildContext context) => listNoDataView(refresh, context),
+        itemBuilder: (List<Repo> list, int index, BuildContext ctx) => RepoListItemWidget(list[index]),
+        // 项目信息列表项
+        separatorBuilder: (List<Repo> list, int index, BuildContext ctx) =>
+            Container(height: 5, color: Colors.transparent),
+      ),
     );
   }
 }
