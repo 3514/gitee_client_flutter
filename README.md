@@ -24,11 +24,11 @@ main.dart
 
 | 首页 | 动态 | 我的 |
 |:---:|:---:|:---:|
-| <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device1.png" width="288" height="610"/> | <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device2.png" width="270" height="564"/> | <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device3.png" width="270" height="564"/> |
+| <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device1.png" width="288" height="610"/> | <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device2.png" width="288" height="610"/> | <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device3.png" width="288" height="610"/> |
 
 | 搜索 | 消息 |
 |:---:|:---:|
-| <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device4.png" width="288" height="610"/> | <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device5.png" width="270" height="564"/>
+| <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device4.png" width="288" height="610"/> | <img src="https://raw.githubusercontent.com/javakam/gitee_client_flutter/master/screenshot/device5.png" width="288" height="610"/>
 
 ## 国际化
 dart -> arb
