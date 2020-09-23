@@ -104,7 +104,7 @@ flutter:
     - static/font/
     - static/image/
 
-#  fonts:
-#    - family: myIcon
-#      fonts:
-#        - asset: fonts/iconfont.ttf
+  fonts:
+    - family: iconFontCN
+      fonts:
+        - asset: static/font/iconfont/iconfont.ttf
