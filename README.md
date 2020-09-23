@@ -1,6 +1,7 @@
 # gitee_client_flutter
 
-🚀**码云客户端**[(Gitee Flutter Client)](https://github.com/javakam/gitee_client_flutter)<br>
+🚀**码云客户端**[Gitee Flutter Client](https://github.com/javakam/gitee_client_flutter)<br>
+🚀**码云客户端 APK**[Gitee Flutter Client Apk](https://github.com/javakam/gitee_client_flutter/blob/master/apk/gitee_client_flutter.apk?raw=true)<br>
 🚀**Flutter中文网** <https://book.flutterchina.club/><br>
 🚀**Flutter中文网 随书源码** <https://github.com/wendux/flutter_in_action_source_code><br>
 🚀**gsy_github_app_flutter** <https://github.com/CarGuo/gsy_github_app_flutter><br>
