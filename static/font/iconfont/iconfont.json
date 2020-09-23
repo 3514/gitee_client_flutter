@@ -1,0 +1,44 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1280133",
+      "name": "tag",
+      "font_class": "tag",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "3211921",
+      "name": "eye",
+      "font_class": "eye",
+      "unicode": "e501",
+      "unicode_decimal": 58625
+    },
+    {
+      "icon_id": "6658877",
+      "name": "star",
+      "font_class": "star",
+      "unicode": "e6a2",
+      "unicode_decimal": 59042
+    },
+    {
+      "icon_id": "7318532",
+      "name": "gitee",
+      "font_class": "logo-black",
+      "unicode": "e731",
+      "unicode_decimal": 59185
+    },
+    {
+      "icon_id": "16036237",
+      "name": "git-branch-line",
+      "font_class": "git-branch-line",
+      "unicode": "e782",
+      "unicode_decimal": 59266
+    }
+  ]
+}

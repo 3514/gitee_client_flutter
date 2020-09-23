@@ -73,39 +73,41 @@ class _RepoDynamicNewsItemWidgetState extends State<_DynamicNewsItemWidget> {
             width: .5,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ListTile(
-                dense: true,
-                leading: getAvatarRect(
-                  //项目owner头像
-                  widget.news?.actor?.avatar_url ?? "",
-                  width: 35.0,
-                  fit: BoxFit.cover,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                title: Text(
-                  widget.news?.actor?.name ?? "",
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
-                subtitle: _buildSubTitle(),
-                trailing: Text(
-                  (widget.news?.type ?? "").replaceAll("Event", ""),
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontSize: 10,
-                  ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            ListTile(
+              contentPadding: EdgeInsets.all(15),
+              dense: true,
+              leading: getAvatarRect(
+                //项目owner头像
+                widget.news?.actor?.avatar_url ?? "",
+                width: 35.0,
+                fit: BoxFit.cover,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              title: Text(
+                widget.news?.actor?.name ?? "",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
                 ),
               ),
-            ],
-          ),
+              subtitle: _buildSubTitle(),
+              trailing: Text(
+                (widget.news?.type ?? "").replaceAll("Event", ""),
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 10,
+                ),
+              ),
+              onTap: () {
+                //todo 2020年9月23日 跳转
+                //navToWeb(context: context, url: widget.news?.repo?.namespace?.html_url ?? "");
+              },
+            ),
+          ],
         ),
       ),
     );

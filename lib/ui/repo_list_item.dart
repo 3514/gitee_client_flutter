@@ -12,6 +12,7 @@ class RepoListItemWidgetV3 extends StatefulWidget {
 class _RepoListItemWidgetV3State extends State<RepoListItemWidgetV3> {
   @override
   Widget build(BuildContext context) {
+    print(" widget.repo == > ${widget.repo.toString()}");
     return Padding(
       padding: const EdgeInsets.only(bottom: 5.0),
       child: Material(
@@ -52,11 +53,11 @@ class _RepoListItemWidgetV3State extends State<RepoListItemWidgetV3> {
                 ),
                 // trailing: Text(
                 //   widget.repo.language ?? "",
-                //   style: TextStyle(
-                //     color: Colors.deepOrange[700],
-                //     fontSize: 11,
-                //   ),
+                //   style: TextStyle(color: Colors.deepOrange[700],fontSize: 11),
                 // ),
+                onTap: () {
+                  navToWeb(context: context,url:"$BASE_URL${widget.repo.path_with_namespace}" );
+                },
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(72, 5, 5, 5),
@@ -66,21 +67,47 @@ class _RepoListItemWidgetV3State extends State<RepoListItemWidgetV3> {
                   children: [
                     //Text( "aaa${sem_fork}bbb \u{1f605} cccc \u{f06e} ddd \u{f005} eee \u{2665} fff"),
 
-                    RichText(text: TextSpan(
-                      children: [
-                        WidgetSpan(child: Icon(Icons.remove_red_eye,color: Colors.grey,size: 15,)),
-                        WidgetSpan(child:  Text("${widget.repo?.watches_count?.toString()}    ", style: TextStyle(fontSize: 12, color: Colors.grey))),
-
-                        WidgetSpan(child: Icon(Icons.star,color: Colors.grey,size: 15,)),
-                        WidgetSpan(child:  Text("${widget.repo?.stars_count?.toString()}    ", style: TextStyle(fontSize: 12, color: Colors.grey))),
-
-                        WidgetSpan(child: Icon(Icons.call_split,color: Colors.grey,size: 15,)),
-                        WidgetSpan(child:  Text("${widget.repo?.forks_count?.toString()}    ", style: TextStyle(fontSize: 12, color: Colors.grey))),
-
-                        WidgetSpan(child: Icon(Icons.label,color: Colors.grey,size: 15,)),
-                        WidgetSpan(child:  Text("${widget.repo?.language?.toString()}", style: TextStyle(fontSize: 12, color: Colors.grey))),
-                      ]
-                    ),),
+                    //iconfont.cn
+                    RichText(
+                      text: TextSpan(children: [
+                        WidgetSpan(
+                            child: Icon(
+                          MyIcons.watch,
+                          color: Colors.grey,
+                          size: 15,
+                        )),
+                        WidgetSpan(
+                            child: Text("${widget.repo?.watches_count?.toString()}     ",
+                                style: TextStyle(fontSize: 12, color: Colors.grey))),
+                        WidgetSpan(
+                            child: Icon(
+                          MyIcons.star,
+                          color: Colors.grey,
+                          size: 15,
+                        )),
+                        WidgetSpan(
+                            child: Text("${widget.repo?.stars_count?.toString()}     ",
+                                style: TextStyle(fontSize: 12, color: Colors.grey))),
+                        WidgetSpan(
+                            child: Icon(
+                          MyIcons.branch,
+                          color: Colors.grey,
+                          size: 15,
+                        )),
+                        WidgetSpan(
+                            child: Text("${widget.repo?.forks_count?.toString()}     ",
+                                style: TextStyle(fontSize: 12, color: Colors.grey))),
+                        WidgetSpan(
+                            child: Icon(
+                          MyIcons.tag,
+                          color: Colors.grey,
+                          size: 15,
+                        )),
+                        WidgetSpan(
+                            child: Text("${widget.repo?.language?.toString()}",
+                                style: TextStyle(fontSize: 12, color: Colors.grey))),
+                      ]),
+                    ),
                   ],
                 ),
               ),
