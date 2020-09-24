@@ -4,7 +4,7 @@ import 'package:gitee_client_flutter/common/const.dart';
 // 图标
 class MyIcons {
   // watch
-  static const IconData watch = const IconData(0xe501, fontFamily: fontIconFontCN, matchTextDirection: true);
+  static const IconData watch = const IconData(0xe600, fontFamily: fontIconFontCN, matchTextDirection: true);
 
   // star
   static const IconData star = const IconData(0xe6a2, fontFamily: fontIconFontCN, matchTextDirection: true);

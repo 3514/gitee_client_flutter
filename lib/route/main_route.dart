@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import '../index.dart';
 
 //主页
@@ -13,7 +12,7 @@ class _MainRouteState extends State<MainRoute> {
   Map<String, IconData> navItemMap;
   int _selectedIndex = 0; //底部导航索引位置
   DateTime _lastPressedAt; //上次点击时间
-  // StreamSubscription subscription;
+  StreamSubscription subscription;
 
   @override
   void initState() {
@@ -22,19 +21,21 @@ class _MainRouteState extends State<MainRoute> {
     _pageList.add(HomeRoute());
     _pageList.add(DynamicRoute());
     _pageList.add(MyRoute());
-    // subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-    //   if (result == ConnectivityResult.mobile) {
-    //     toastBottom("当前正在使用移动网络");
-    //   } else if (result == ConnectivityResult.wifi) {
-    //     toastBottom("当前正在使用Wifi");
-    //   }
-    // });
+    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.mobile) {
+        showToast(networkMobile);
+      } else if (result == ConnectivityResult.wifi) {
+        showToast(networkWifi);
+      } else {
+        showToast(networkNone);
+      }
+    });
   }
 
   @override
   dispose() {
     super.dispose();
-    // subscription?.cancel();
+    subscription?.cancel();
   }
 
   @override

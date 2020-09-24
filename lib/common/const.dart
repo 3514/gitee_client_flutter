@@ -11,6 +11,11 @@ const CLIENT_SECRET = "0cff85e8decb0b93cd856952c85f41a1e8636040b7f4ffdea8788dbbe
 const fontIconFontCN = 'iconFontCN';
 const fontMaterialIcons = 'MaterialIcons'; //字体(内置)
 
+///网络
+const String networkMobile = '当前处于移动网络';
+const String networkWifi = '当前处于WIFI网络';
+const String networkNone = '请检查网络连接';
+
 ///颜色
 const colorNotifyTitle = Color(0xFF00415E);
 
